@@ -1,4 +1,4 @@
 # FSEProject
 
-https://FSEProject.semaphoreci.com/badges/FSEProject.svg
-t
+ <img src="https://FSEProject.semaphoreci.com/badges/FSEProject.svg" />
+
