@@ -4,9 +4,6 @@ from Backend.src.start import *
 
 class Teststart(unittest.TestCase):
 
-    def test_not_correct_addition(self):
-        self.assertEqual(addnumbers(2,3),6)
-
     def test_correct_addition(self):
         self.assertEqual(addnumbers(2,3),5)
 
