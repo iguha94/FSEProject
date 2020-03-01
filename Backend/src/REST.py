@@ -23,6 +23,24 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/chngtoadmstatus',methods=['GET'])
+def changetoadmstatus():
+    emailid= request.args.get('Email')
+    if emailid== '':
+        return jsonify({'Message': 'Valid EmailID is Mandatory'}),400
+    sql = "SELECT * FROM Users WHERE Email=%s"
+    val = (emailid,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    if len(myresult)!=1:
+        return jsonify({'Message': 'User is not present in the Databse'}),400
+    sql = "UPDATE Users SET Status = 'ADMIN' WHERE Email = %s"
+    val = (emailid,)
+    mycursor.execute(sql, val)
+    db.commit()
+    return jsonify({'Message': 'User Has been Promoted to Admin Status'}), 200
+
+
 @app.route('/login',methods=['POST'])
 def login():
     if not request.json or not 'Email' in request.json or request.json['Email'] == '':
@@ -40,22 +58,24 @@ def login():
 
     return jsonify({'Message': 'Logged in Successfully'}), 200
 
+
 @app.route('/signup',methods=['POST'])
 def signup():
     if not request.json or not 'Email' in request.json or request.json['Email'] == '' or not re.search(regex, request.json['Email']):
         return jsonify({'Message': 'Valid EmailID is Mandatory'}),400
-    if not request.json or not 'PassWord' in request.json or request.json['Password'] == '' :
+    if not request.json or not 'PassWord' in request.json or request.json['PassWord'] == '' :
         return jsonify({'Message': 'PassWord is Mandatory'}),400
 
     EmailID = request.json['Email']
     sql = "SELECT * FROM Users WHERE Email=%s"
     val = (EmailID,)
+    print(sql)
     mycursor.execute(sql,val)
     myresult = mycursor.fetchall()
     print('Total record in db: ',len(myresult))
     if len(myresult)>0:
         return jsonify({'Message': 'User with This EmailID is already Present'}),400
-    msg=""
+
     if 'LastName' not in request.json:
         return jsonify({'Message': 'Last Name is Mandatory'}), 400
     if 'FirstName' not in request.json:
