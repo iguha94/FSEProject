@@ -1,0 +1,19 @@
+CREATE DATABASE FSETEAM04
+USE FSETEAM04
+
+CREATE TABLE Users (
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Street varchar(255) NOT NULL,
+    City varchar(255) NOT NULL,
+    ZIP varchar(255) NOT NULL,
+    State varchar(255) NOT NULL,
+    Country varchar(255) NOT NULL,
+    Email varchar(255) NOT NULL,
+    PassWord varchar(255) NOT NULL,
+    Phone varchar(15) NOT NULL,
+    Status varchar(10),
+    CurStatus varchar(10),
+    PRIMARY KEY (Email)
+);
+

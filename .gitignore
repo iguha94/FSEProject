@@ -1,2 +1,11 @@
 .idea/
 *.xml
+Backend/__init__.pyc
+Backend/__pycache__/
+Backend/src/REST.pyc
+Backend/src/__init__.pyc
+Backend/src/__pycache__/
+Backend/src/start.pyc
+Backend/test/Teststart.pyc
+Backend/test/__init__.pyc
+Backend/test/__pycache__/

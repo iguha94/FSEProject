@@ -1,11 +1,75 @@
 import unittest
+import sys
 from Backend.src.start import *
+from Backend.src.REST import *
+from flask import json
+import os
+import json
+from unittest.mock import patch,MagicMock
+
+content ={"Email":"ABC123@gmail.com","PassWord": "abc","LastName": "Guha","FirstName":"Indranil",
+	"Street": "Oakcrest Street","City": "Iowa city","ZIP": "52246","State": "IA","Country": "USA","Phone": "3195128300"}
+
+testres=[]
 
 
-class Teststart(unittest.TestCase):
+sys.path.append("/Users/iguha/Documents/FSEProject/")
 
-    def test_correct_addition(self):
-        self.assertEqual(addnumbers(2,3),5)
+class TestRestAPI(unittest.TestCase):
 
-if __name__ == '__main__':
+    def test_login_success(self):
+        response = app.test_client().post(
+            '/login',
+            data=json.dumps({'Email': 'ABC123@gmail.com', 'PassWord': 'abc'}),
+            content_type='application/json'
+        )
+        assert response.status_code == 200
+
+    def test_login_failure_invalid_password(self):
+        response = app.test_client().post(
+            '/login',
+            data=json.dumps({'Email': 'ABC123@gmail.com', 'PassWord': 'abc2'}),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+    def test_login_failure_invalid_Email(self):
+        response = app.test_client().post(
+            '/login',
+            data=json.dumps({'Email': 'ABC1234@gmail.com', 'PassWord': 'abc'}),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+    def test_login_failure_Missing_Email(self):
+        response = app.test_client().post(
+            '/login',
+            data=json.dumps({'Email': '', 'PassWord': 'abc'}),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+    def test_login_failure_Missing_Password(self):
+        response = app.test_client().post(
+            '/login',
+            data=json.dumps({'Email': 'ABC123@gmail.com', 'PassWord': ''}),
+            content_type='application/json'
+        )
+        assert response.status_code == 400
+
+    # @patch('mysql.connector.connect')
+    # def test_signup_success(self,mock):
+    #     connection = mock.Mock()
+    #     mock.return_val=connection
+    #     cursor = connection.cursor.return_value
+    #     response = app.test_client().post(
+    #         '/signup',
+    #         data=json.dumps(content),
+    #         content_type='application/json'
+    #     )
+    #     assert cursor.execute.assert_called_once()
+
+
+# Make the tests conveniently executable
+if __name__ == "__main__":
     unittest.main()
