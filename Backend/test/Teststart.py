@@ -57,17 +57,16 @@ class TestRestAPI(unittest.TestCase):
         )
         assert response.status_code == 400
 
-    # @patch('mysql.connector.connect')
-    # def test_signup_success(self,mock):
-    #     connection = mock.Mock()
-    #     mock.return_val=connection
-    #     cursor = connection.cursor.return_value
-    #     response = app.test_client().post(
-    #         '/signup',
-    #         data=json.dumps(content),
-    #         content_type='application/json'
-    #     )
-    #     assert cursor.execute.assert_called_once()
+    def test_signup_success(self):
+        with patch(target='mysql.connector.connect') as mock:
+            connection = mock.return_value
+            mycursor = connection.cursor.return_value
+            response = app.test_client().post(
+                '/signup',
+                data=json.dumps(content),
+                content_type='application/json'
+            )
+            assert response.status_code == 200
 
 
 # Make the tests conveniently executable

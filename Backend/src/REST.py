@@ -5,19 +5,25 @@ Created on Tue Feb 18 17:01:14 2020
 @author: MBiggs
 """
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request,g
 import mysql.connector
 import base64
 import re
 
-db = mysql.connector.connect(user='root', password='',
-                              host='localhost',database='FSETEAM04',
-                              auth_plugin='mysql_native_password')
-mycursor = db.cursor()
-mycursor.execute('USE FSETEAM04')
+
+
 regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 
 app = Flask(__name__)
+
+@app.before_request
+def con():
+    g.db = mysql.connector.connect(user='root', password='',
+                                 host='localhost', database='FSETEAM04',
+                                 auth_plugin='mysql_native_password')
+
+
+
 
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -25,6 +31,8 @@ def index():
 
 @app.route('/chngtoadmstatus',methods=['GET'])
 def changetoadmstatus():
+    mycursor = g.db.cursor()
+    mycursor.execute('USE FSETEAM04')
     emailid= request.args.get('Email')
     if emailid== '':
         return jsonify({'Message': 'Valid EmailID is Mandatory'}),400
@@ -37,12 +45,14 @@ def changetoadmstatus():
     sql = "UPDATE Users SET Status = 'ADMIN' WHERE Email = %s"
     val = (emailid,)
     mycursor.execute(sql, val)
-    db.commit()
+    g.db.close()
     return jsonify({'Message': 'User Has been Promoted to Admin Status'}), 200
 
 
 @app.route('/login',methods=['POST'])
 def login():
+    mycursor = g.db.cursor()
+    mycursor.execute('USE FSETEAM04')
     if not request.json or not 'Email' in request.json or request.json['Email'] == '':
         return jsonify({'Message': 'EmailID is Mandatory'}),400
     if not request.json or not 'PassWord' in request.json or request.json['PassWord'] == '' :
@@ -53,6 +63,7 @@ def login():
     val = (EmailID,PassWord,)
     mycursor.execute(sql, val)
     myresult = mycursor.fetchall()
+    g.db.close()
     if len(myresult)!=1:
         return jsonify({'Message': 'Email or Password is Incorrect'}),400
 
@@ -61,6 +72,8 @@ def login():
 
 @app.route('/signup',methods=['POST'])
 def signup():
+    mycursor = g.db.cursor()
+    mycursor.execute('USE FSETEAM04')
     if not request.json or not 'Email' in request.json or request.json['Email'] == '' or not re.search(regex, request.json['Email']):
         return jsonify({'Message': 'Valid EmailID is Mandatory'}),400
     if not request.json or not 'PassWord' in request.json or request.json['PassWord'] == '' :
@@ -107,7 +120,8 @@ def signup():
     sql = "INSERT INTO Users (LastName,FirstName,Street,City,ZIP,State,Country,Email,PassWord,Phone,Status,CurStatus) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s,%s,%s)"
     val = (LastName,FirstName,Street,City,ZIP,State,Country,EmailID,PassWord,Phone,Status,CurStatus)
     mycursor.execute(sql, val)
-    db.commit()
+    #g.db.commit()
+    g.db.close()
     return jsonify({'Message': 'Account Created Successfully'}), 200
 
 
