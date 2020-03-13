@@ -9,18 +9,22 @@ from flask import Flask, jsonify, render_template, request,g
 import mysql.connector
 import base64
 import re
+from flask_cors import CORS, cross_origin
 
 
 
 regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 
 app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app, resources={r"/login": {"origins": "http://localhost:3000"}})
 
-#@app.before_request
-##def con():
-##   g.db = mysql.connector.connect(user='root', password='',
-#                                 host='localhost', database='FSETEAM04',
-#                                 auth_plugin='mysql_native_password')
+
+@app.before_request
+def con():
+  g.db = mysql.connector.connect(user='root', password='',
+                                host='localhost', database='FSETEAM04',
+                                auth_plugin='mysql_native_password')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -47,23 +51,31 @@ def changetoadmstatus():
 
 
 @app.route('/login',methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
 def login():
+    print('Here')
     mycursor = g.db.cursor()
     mycursor.execute('USE FSETEAM04')
-    if not request.json or not 'Email' in request.json or request.json['Email'] == '':
+    print('Here2')
+    print (request.json)
+    print('Email: ', request.json['payload']['Email'])
+    print('PassWord: ', request.json['payload']['PassWord'])
+    if not request.json or not 'Email' in request.json['payload'] or request.json['payload']['Email'] == '':
         return jsonify({'Message': 'EmailID is Mandatory'}),400
-    if not request.json or not 'PassWord' in request.json or request.json['PassWord'] == '' :
+    if not request.json or not 'PassWord' in request.json['payload'] or request.json['payload']['PassWord'] == '' :
         return jsonify({'Message': 'PassWord is Mandatory'}),400
-    EmailID = request.json['Email']
-    PassWord = base64.b64encode(request.json['PassWord'].encode("utf-8"))
+    EmailID = request.json['payload']['Email']
+    PassWord = base64.b64encode(request.json['payload']['PassWord'].encode("utf-8"))
+
     sql = "SELECT * FROM Users WHERE Email=%s AND PassWord=%s"
     val = (EmailID,PassWord,)
     mycursor.execute(sql, val)
     myresult = mycursor.fetchall()
+    print('here4',len(myresult))
     g.db.close()
     if len(myresult)!=1:
         return jsonify({'Message': 'Email or Password is Incorrect'}),400
-
+    print('here3')
     return jsonify({'Message': 'Logged in Successfully'}), 200
 
 
