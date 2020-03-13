@@ -1,0 +1,33 @@
+.HomePage {
+    background-color: rgb(152, 230, 255);
+    display: inline;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.Home-header {
+    background-color: darkseagreen;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: inline;
+    align-items: center;
+    box-shadow: 0 0 25px 0 black;
+}
+.Nav-Bar{
+    display: inline-list-item;
+}
+.Home-body {
+    height: 125vh;
+    background-size: cover;
+    font-family: sans-serif;
+    margin-top: 80px;
+    padding: 30px;
+    align-items: center;
+    text-align: center;
+}
