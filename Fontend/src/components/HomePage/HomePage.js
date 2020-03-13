@@ -1,17 +1,34 @@
 import React, { Component } from 'react';
 import NavBar from '../NavBar/NavBar';
 import './HomePage.css';
+import {Panel} from "react-bootstrap";
+
+const divStyle = {
+    display: 'table',
+    alignItems: 'center',
+    margin: 'auto',
+};
+
+const panelStyle = {
+    backgroundColor: 'rgba(255,255,255,0.5)',
+    border: 0,
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: 300,
+};
 
 class HomePage extends Component{
     render() {
         return (
-            <div className="HomePage">
-                <header className="Home-header">
-                    <NavBar className={"Nav-Bar"}/>
-                </header>
-                <body className="Home-body">
-                    <h2>Home Page</h2>
-                </body>
+            <div style={divStyle} className="HomePage">
+                <Panel style={panelStyle}>
+                    <header className="Home-header">
+                        <NavBar className={"Nav-Bar"}/>
+                    </header>
+                    <body className="Home-body">
+                        <h2>Home Page</h2>
+                    </body>
+                </Panel>
             </div>
         );
     }

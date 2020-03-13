@@ -4,7 +4,6 @@ import {Tabs, Tab} from 'react-bootstrap-tabs'
 
 import './LoginPage.css';
 import NavBar from "../NavBar/NavBar";
-import RegistrationForm from "../RegistrationPage/RegistrationForm";
 
 class LoginPage extends Component {
 
