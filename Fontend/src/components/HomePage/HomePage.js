@@ -27,6 +27,11 @@ class HomePage extends Component{
                     </header>
                     <body className="Home-body">
                         <h2>Home Page</h2>
+                        <div className="search-input">
+                            <input type="text" className="search-input" placeholder="Search..." />
+                            <ul>
+                            </ul>
+                        </div>
                     </body>
                 </Panel>
             </div>

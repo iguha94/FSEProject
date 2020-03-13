@@ -4,16 +4,20 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",
-    "react": "^15.5.4",
     "react-bootstrap": "^0.31.5",
     "react-bootstrap-tabs": "^1.0.2",
-    "react-dom": "^15.5.4",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^4.1.1",
     "react-strap": "0.0.1",
     "reactstrap": "^8.4.1"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "bulma": "^0.8.0",
+    "parcel": "^1.12.4",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "react-scripts": "0.9.5"
   },
   "scripts": {

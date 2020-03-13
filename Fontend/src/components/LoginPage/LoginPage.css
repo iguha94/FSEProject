@@ -26,17 +26,12 @@
     flex-direction: row;
     justify-content: space-between;
     justify-items: center;
-    padding-left: 5%;
-    padding-right: 5%;
 }
 
 .Tab-Bar{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     justify-items: center;
-    padding-left: 5%;
-    padding-right: 5%;
 }
 
 .Login-body {

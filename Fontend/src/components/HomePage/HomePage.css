@@ -31,13 +31,18 @@
 }
 
 .Home-body {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-items: right;
     height: 100%;
+    width: 100%;
     background-size: cover;
     font-family: sans-serif;
     margin-bottom: 130px;
-    align-items: center;
     text-align: center;
-    padding-bottom: 50%;
     padding-top: 60%;
+}
+
+.search-input{
+    width: 100%;
 }
