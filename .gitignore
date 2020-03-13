@@ -9,3 +9,6 @@ Backend/src/start.pyc
 Backend/test/Teststart.pyc
 Backend/test/__init__.pyc
 Backend/test/__pycache__/
+Fontend/node_modules/
+Fontend/package-lock.json
+package-lock.json
