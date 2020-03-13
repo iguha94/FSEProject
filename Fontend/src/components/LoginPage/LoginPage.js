@@ -23,8 +23,8 @@ class LoginPage extends Component {
           <header className="Login-header">
             <NavBar className="Nav-Bar"/>
             <Tabs className="Tab-Bar">
-              <Tab label="User">User</Tab>
-              <Tab label="Admin">Admin</Tab>
+              <Tab label="User"></Tab>
+              <Tab label="Admin"></Tab>
             </Tabs>
           </header>
           <body className="Login-body">

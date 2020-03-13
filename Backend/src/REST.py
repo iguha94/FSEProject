@@ -16,16 +16,13 @@ regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 
 app = Flask(__name__)
 
-@app.before_request
-def con():
-    g.db = mysql.connector.connect(user='root', password='',
-                                 host='localhost', database='FSETEAM04',
-                                 auth_plugin='mysql_native_password')
+#@app.before_request
+##def con():
+##   g.db = mysql.connector.connect(user='root', password='',
+#                                 host='localhost', database='FSETEAM04',
+#                                 auth_plugin='mysql_native_password')
 
-
-
-
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
 
@@ -70,7 +67,13 @@ def login():
     return jsonify({'Message': 'Logged in Successfully'}), 200
 
 
-@app.route('/signup',methods=['POST'])
+@app.route('/test',methods=['POST'])
+def test():
+    return jsonify({'Message': 'Logged in Successfully'}), 200
+
+
+
+@app.route('/registration',methods=['POST'])
 def signup():
     mycursor = g.db.cursor()
     mycursor.execute('USE FSETEAM04')
