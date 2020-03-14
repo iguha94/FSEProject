@@ -17,3 +17,20 @@ CREATE TABLE Users (
     PRIMARY KEY (Email)
 );
 
+'''
+localhost:5000/signup
+
+{
+	"Email":"ABC123@gmail.com",
+	"PassWord": "abc",
+	"LastName": "Guha",
+	"FirstName":"Indranil",
+	"Street": "Oakcrest Street",
+	"City": "Iowa city",
+	"ZIP": "52246",
+	"State": "IA",
+	"Country": "USA",
+	"Phone": "3195128300"
+}
+
+'''
