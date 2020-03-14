@@ -61,9 +61,9 @@ def login():
     print('Email: ', request.json['payload']['Email'])
     print('PassWord: ', request.json['payload']['PassWord'])
     if not request.json or not 'Email' in request.json['payload'] or request.json['payload']['Email'] == '':
-        return jsonify({'Message': 'EmailID is Mandatory'}),400
+        return jsonify({'Message': 'EmailID is Mandatory'}),200
     if not request.json or not 'PassWord' in request.json['payload'] or request.json['payload']['PassWord'] == '' :
-        return jsonify({'Message': 'PassWord is Mandatory'}),400
+        return jsonify({'Message': 'PassWord is Mandatory'}),200
     EmailID = request.json['payload']['Email']
     PassWord = base64.b64encode(request.json['payload']['PassWord'].encode("utf-8"))
 
@@ -74,7 +74,7 @@ def login():
     print('here4',len(myresult))
     g.db.close()
     if len(myresult)!=1:
-        return jsonify({'Message': 'Email or Password is Incorrect'}),400
+        return jsonify({'Message': 'Email or Password is Incorrect'}),200
     print('here3')
     return jsonify({'Message': 'Logged in Successfully'}), 200
 

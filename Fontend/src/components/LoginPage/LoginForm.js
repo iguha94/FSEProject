@@ -61,10 +61,11 @@ class LoginForm extends Component {
           data:{
             payload
     }
-  }).then(data=>console.log(data))
-        .catch(err=>console.log(err))
+  }).then(data => {
+    console.log(data);
     console.log("FORM SUBMITTED!");
-    this.props.history.push('/')
+    this.props.reRoute('/');
+  }).catch(err=>console.log(err));
   }
 
   render() {

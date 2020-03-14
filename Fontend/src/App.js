@@ -7,35 +7,28 @@ import {
 import HomePage from './components/HomePage/HomePage';
 import LoginPage from './components/LoginPage/LoginPage';
 import RegistrationPage from './components/RegistrationPage/RegistrationPage';
+import NavBar from './components/NavBar/NavBar';
 
 import './App.css';
 
-const Home = () => (
-  <HomePage />
-);
-
-const Login = () => (
-  <LoginPage />
-);
-
-const Registration = () => (
-    <RegistrationPage />
-);
 
 class App extends Component {
   constructor()
   {
       super();
+      console.log('bsdk chal ja');
   }
   render() {
     return (
-      <Router>
         <div className="App">
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/registration" component={Registration} />
+          [
+
+            <header className="Home-header">
+               <NavBar className="Nav-Bar"/>
+            </header>,
+            <HomePage/>
+          ]
         </div>
-      </Router>
     );
   }
 }

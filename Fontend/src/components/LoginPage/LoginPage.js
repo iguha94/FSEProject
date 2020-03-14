@@ -11,11 +11,17 @@ class LoginPage extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.reRoute = this.reRoute.bind(this);
   }
 
-  handleSubmit(event){}
+  handleSubmit(e){}
 
-  handleChange(event){}
+  handleChange(e){}
+
+  reRoute(path){
+      console.log('LoginPage, Path:', path);
+      this.props.history.push(path);
+  }
 
   render() {
     return (
@@ -29,7 +35,7 @@ class LoginPage extends Component {
           </header>
           <body className="Login-body">
           <h2>Login</h2>
-          <LoginForm />
+          <LoginForm reRoute={this.reRoute}/>
           </body>
         </div>
     );

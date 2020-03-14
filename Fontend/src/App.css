@@ -24,3 +24,28 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.Nav-Bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+
+.Home-header {
+    background-color: #555;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 125px;
+    align-items: center;
+    box-shadow: 0 0 25px 0 black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-items: center;
+}

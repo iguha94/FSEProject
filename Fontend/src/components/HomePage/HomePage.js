@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavBar from '../NavBar/NavBar';
 import './HomePage.css';
 import {Panel} from "react-bootstrap";
 
@@ -22,9 +21,7 @@ class HomePage extends Component{
         return (
             <div style={divStyle} className="HomePage">
                 <Panel style={panelStyle}>
-                    <header className="Home-header">
-                        <NavBar className={"Nav-Bar"}/>
-                    </header>
+
                     <body className="Home-body">
                         <h2>Home Page</h2>
                         <div className="search-input">
