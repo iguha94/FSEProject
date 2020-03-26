@@ -18,7 +18,7 @@ regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 cors = CORS(app, resources={r"/login": {"origins": "http://localhost:3000"}})
-
+cors = CORS(app, resources={r"/registration": {"origins": "http://localhost:3000"}})
 
 @app.before_request
 def con():
@@ -83,59 +83,61 @@ def login():
 def test():
     return jsonify({'Message': 'Logged in Successfully'}), 200
 
-
-
 @app.route('/registration',methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
 def signup():
     mycursor = g.db.cursor()
     mycursor.execute('USE FSETEAM04')
-    if not request.json or not 'Email' in request.json or request.json['Email'] == '' or not re.search(regex, request.json['Email']):
-        return jsonify({'Message': 'Valid EmailID is Mandatory'}),400
-    if not request.json or not 'PassWord' in request.json or request.json['PassWord'] == '' :
-        return jsonify({'Message': 'PassWord is Mandatory'}),400
-
-    EmailID = request.json['Email']
+    print(request.json)
+    print(request.json['payload']['Email'])
+    if not request.json['payload'] or not 'Email' in request.json['payload'] or request.json['payload']['Email'] == '' or not re.search(regex, request.json['payload']['Email']):
+        return jsonify({'Message': 'Valid EmailID is Mandatory'}),200
+    if not request.json or not 'PassWord' in request.json['payload'] or request.json['payload']['PassWord'] == '' :
+        return jsonify({'Message': 'PassWord is Mandatory'}),200
+    print('here')
+    EmailID = request.json['payload']['Email']
     sql = "SELECT * FROM Users WHERE Email=%s"
     val = (EmailID,)
-    print(sql)
+    print(EmailID)
     mycursor.execute(sql,val)
     myresult = mycursor.fetchall()
     print('Total record in db: ',len(myresult))
     if len(myresult)>0:
-        return jsonify({'Message': 'User with This EmailID is already Present'}),400
-
-    if 'LastName' not in request.json:
-        return jsonify({'Message': 'Last Name is Mandatory'}), 400
-    if 'FirstName' not in request.json:
-        return jsonify({'Message': 'First Name is Mandatory'}), 400
-    if 'Street' not in request.json:
-        return jsonify({'Message': 'Street Name is Mandatory'}), 400
-    if 'Country' not in request.json:
-        return jsonify({'Message': 'Country Name is Mandatory'}), 400
-    if 'ZIP' not in request.json:
-        return jsonify({'Message': 'Zip is Mandatory'}), 400
-    if 'State' not in request.json:
-        return jsonify({'Message': 'State Name is Mandatory'}), 400
-    if 'City' not in request.json:
-        return jsonify({'Message': 'City is Mandatory'}), 400
-    if 'Phone' not in request.json:
-        return jsonify({'Message': 'Phone Number is Mandatory'}), 400
-
-    LastName = request.json['LastName']
-    FirstName = request.json['FirstName']
-    Street = request.json['Street']
-    City = request.json['Country']
-    ZIP = request.json['ZIP']
-    State = request.json['State']
-    Country = request.json['Country']
-    PassWord = base64.b64encode(request.json['PassWord'].encode("utf-8"))
-    Phone = request.json['Phone']
+        return jsonify({'Message': 'User with This EmailID is already Present'}),200
+    print(request.json['payload'])
+    if 'LastName' not in request.json['payload']:
+        return jsonify({'Message': 'Last Name is Mandatory'}), 200
+    if 'FirstName' not in request.json['payload']:
+        return jsonify({'Message': 'First Name is Mandatory'}), 200
+    if 'Street' not in request.json['payload']:
+        return jsonify({'Message': 'Street Name is Mandatory'}), 200
+    if 'Country' not in request.json['payload']:
+        return jsonify({'Message': 'Country Name is Mandatory'}), 200
+    if 'ZIP' not in request.json['payload']:
+        return jsonify({'Message': 'Zip is Mandatory'}), 200
+    if 'State' not in request.json['payload']:
+        return jsonify({'Message': 'State Name is Mandatory'}), 200
+    if 'City' not in request.json['payload']:
+        return jsonify({'Message': 'City is Mandatory'}), 200
+    if 'Phone' not in request.json['payload']:
+        return jsonify({'Message': 'Phone Number is Mandatory'}), 200
+    print('here3')
+    LastName = request.json['payload']['LastName']
+    FirstName = request.json['payload']['FirstName']
+    Street = request.json['payload']['Street']
+    City = request.json['payload']['Country']
+    ZIP = request.json['payload']['ZIP']
+    State = request.json['payload']['State']
+    Country = request.json['payload']['Country']
+    PassWord = base64.b64encode(request.json['payload']['PassWord'].encode("utf-8"))
+    Phone = request.json['payload']['Phone']
     Status = 'Default'
     CurStatus=''
     sql = "INSERT INTO Users (LastName,FirstName,Street,City,ZIP,State,Country,Email,PassWord,Phone,Status,CurStatus) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s,%s,%s)"
     val = (LastName,FirstName,Street,City,ZIP,State,Country,EmailID,PassWord,Phone,Status,CurStatus)
+    print('here')
     mycursor.execute(sql, val)
-    #g.db.commit()
+    g.db.commit()
     g.db.close()
     return jsonify({'Message': 'Account Created Successfully'}), 200
 

@@ -6,6 +6,17 @@ import NavBar from "../NavBar/NavBar";
 import {Tab, Tabs} from "react-bootstrap-tabs";
 
 class RegistrationPage extends Component {
+
+    constructor(props){
+        super(props);
+        this.reRoute = this.reRoute.bind(this);
+      }
+
+    reRoute(path){
+        console.log('Registration Page, Path:', path);
+        this.props.history.push(path);
+    }
+
     render() {
         return (
             <div className="RegistrationPage">
@@ -16,10 +27,8 @@ class RegistrationPage extends Component {
                         <Tab label="Admin"></Tab>
                     </Tabs>
                 </header>
-                <body className="Reg-body">
                 <h2>Register User</h2>
-                <RegistrationForm />
-                </body>
+                <RegistrationForm reRoute={this.reRoute}/>
             </div>
         );
     }

@@ -22,14 +22,14 @@ class HomePage extends Component{
             <div style={divStyle} className="HomePage">
                 <Panel style={panelStyle}>
 
-                    <body className="Home-body">
+                    <div className="Home-body">
                         <h2>Home Page</h2>
                         <div className="search-input">
                             <input type="text" className="search-input" placeholder="Search..." />
                             <ul>
                             </ul>
                         </div>
-                    </body>
+                    </div>
                 </Panel>
             </div>
         );

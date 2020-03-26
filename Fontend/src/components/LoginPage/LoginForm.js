@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Panel, Form, FormGroup, FormControl, Button } from 'react-bootstrap';
-import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import axios from 'axios';
 
 
 //const Url='https://cors-anywhere.herokuapp.com/http://localhost:5000/'
@@ -10,7 +9,7 @@ const Url='http://localhost:5000/'
 const divStyle = {
   display: 'flex',
   alignItems: 'center',
-  marginTop: -100
+  marginTop: '20%'
 };
 
 const panelStyle = {

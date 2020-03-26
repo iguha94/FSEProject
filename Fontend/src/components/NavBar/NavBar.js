@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Nav, Form } from 'react-bootstrap';
 import './NavBar.css';
 import Container from "reactstrap/lib/Container";
 
