@@ -17,6 +17,7 @@ class NavBar extends Component {
                             <a className="nav-item"><a href="/">Home</a></a>
                             <a className="nav-item"><a href="/login">Login</a></a>
                             <a className="nav-item"><a href="/registration">Sign Up</a></a>
+                            <a className="nav-item"><a href="/query">Events</a></a>
                         </Form>
                     </Container>
                 </Nav>

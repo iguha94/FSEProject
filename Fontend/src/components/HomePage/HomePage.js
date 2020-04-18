@@ -21,7 +21,6 @@ class HomePage extends Component{
         return (
             <div style={divStyle} className="HomePage">
                 <Panel style={panelStyle}>
-
                     <div className="Home-body">
                         <h2>Home Page</h2>
                         <div className="search-input">

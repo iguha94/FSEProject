@@ -18,7 +18,7 @@ class LoginPage extends Component {
 
   handleChange(e){}
 
-  reRoute(path){
+  reRoute(path,sessval){
       console.log('LoginPage, Path:', path);
       this.props.history.push(path);
   }
