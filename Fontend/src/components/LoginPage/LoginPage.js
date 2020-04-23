@@ -33,8 +33,10 @@ class LoginPage extends Component {
               <Tab label="Admin"></Tab>
             </Tabs>
           </header>
-          <h2>Login</h2>
+          <h2 className = "title">Login</h2>
+            <div className = "formDiv">
           <LoginForm reRoute={this.reRoute}/>
+            </div>
         </div>
     );
   }

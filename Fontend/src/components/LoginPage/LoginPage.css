@@ -1,20 +1,36 @@
-.LoginPage {
-    display: inline-flex;
+.LoginForm {
+    margin: auto;
+    width: 50%;
+    background-size: cover;
+    align-self: center;
+    justify-content: center;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+.LoginPage{
+    align-self: center;
+    justify-content: center;
     background-color: white;
     margin: auto;
+    display: flex;
     background-size: cover;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    /*padding-top: 125px;*/
+}
+
+.title{
+    align-self: center;
 }
 
 .Login-header {
     background-color: #555;
-    position: fixed;
+    /*position: fixed;*/
     top: 0;
     left: 0;
     right: 0;
     height: 125px;
-    align-items: center;
+    /*align-items: center;*/
     box-shadow: 0 0 25px 0 black;
     display: flex;
     flex-direction: row;
@@ -26,22 +42,30 @@
     flex-direction: row;
     justify-content: space-between;
     justify-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .Tab-Bar{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     justify-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .Login-body {
-    display: block;
     height: 100%;
     background-size: cover;
     font-family: sans-serif;
-    margin-bottom: 130px;
-    top: 130px;
-    align-items: center;
+    margin-top: 130px;
+    padding: 30px;
+    align-self: center;
     text-align: center;
-    padding-top: 50%;
+}
+
+.formDiv {
+    display: flex;
+    align-self: center;
 }
