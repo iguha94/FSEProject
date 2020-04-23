@@ -19,6 +19,7 @@ app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 cors = CORS(app, resources={r"/login": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/registration": {"origins": "http://localhost:3000"}})
+cors = CORS(app, resources={r"/event":{"origins":"http://localhost:300"}})
 
 @app.before_request
 def con():
@@ -141,7 +142,14 @@ def signup():
     g.db.close()
     return jsonify({'Message': 'Account Created Successfully'}), 200
 
-
+@app.route('/event',methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
+def request():
+	mycursor = g.db.cursor()
+	mycursor.execute('USE FSETEAM04')
+	print(request.json)
+	print(request.json['payload']['organization'])
+	return jsonify({'Message': 'Resources Successfully Requested'}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
