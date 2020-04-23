@@ -9,15 +9,14 @@ const Url='http://localhost:5000/'
 const divStyle = {
   display: 'flex',
   alignItems: 'center',
-  marginTop: '20%'
+  // marginTop: '20%'
 };
 
 const panelStyle = {
   backgroundColor: 'rgba(255,255,255,0.5)',
   border: 0,
-  paddingLeft: 20,
-  paddingRight: 20,
-  width: 300,
+  //paddingLeft: 20,
+  //paddingRight: 20,
 };
 
 const buttonStyle = {
