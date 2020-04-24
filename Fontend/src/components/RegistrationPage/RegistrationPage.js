@@ -27,7 +27,7 @@ class RegistrationPage extends Component {
                         <Tab label="Admin"></Tab>
                     </Tabs>
                 </header>
-                <h2>Register User</h2>
+                <h2 className = "title">Register User</h2>
                 <RegistrationForm reRoute={this.reRoute}/>
             </div>
         );

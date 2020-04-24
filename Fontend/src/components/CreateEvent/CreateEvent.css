@@ -1,16 +1,17 @@
-.LoginForm {
+.CreateEventForm {
     margin: auto;
     width: 50%;
     background-size: cover;
-    align-self: center;
-    justify-content: center;
+    align-items: center;
+    /*justify-content: center;*/
     display: table-cell;
     text-align: center;
     vertical-align: middle;
+    top: 130px;
 }
-.LoginPage{
-    align-self: center;
-    justify-content: center;
+.CreateEventPage{
+    align-items: center;
+    /*justify-content: center;*/
     background-color: white;
     margin: auto;
     display: flex;
@@ -18,27 +19,25 @@
     flex-direction: column;
     /*padding-top: 125px;*/
 }
-
-.title{
-    align-self: center;
-}
-
-.Login-header {
+.Event-header{
     background-color: #555;
     /*position: fixed;*/
     top: 0;
     left: 0;
     right: 0;
     height: 125px;
-    /*align-items: center;*/
+    align-items: center;
     box-shadow: 0 0 25px 0 black;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    justify-items: center;
+    /*justify-content: space-between;*/
+    /*justify-items: center;*/
+    width: 100%;
+    z-index: 99;
 }
 .Nav-Bar{
     display: flex;
+    position: fixed;
     flex-direction: row;
     justify-content: space-between;
     justify-items: center;
@@ -55,17 +54,12 @@
     padding-right: 5%;
 }
 
-.Login-body {
+.Event-body {
     height: 100%;
     background-size: cover;
     font-family: sans-serif;
-    margin-top: 130px;
+    /*margin-top: 130px;*/
     padding: 30px;
-    align-self: center;
+    align-items: center;
     text-align: center;
-}
-
-.formDiv {
-    display: flex;
-    align-self: center;
 }
