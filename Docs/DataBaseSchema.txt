@@ -17,6 +17,27 @@ CREATE TABLE Users (
     PRIMARY KEY (Email)
 );
 
+CREATE TABLE Disasters (
+    EID varchar(255) NOT NULL,
+    Title varchar(255) NOT NULL,
+    Street varchar(255) NOT NULL,
+    City varchar(255) NOT NULL,
+    ZIP varchar(255) NOT NULL,
+    State varchar(255) NOT NULL,
+    Country varchar(255) NOT NULL,
+    Email varchar(255) NOT NULL,
+    CallCenterID varchar(255) NOT NULL,
+    CreatedAT DATE NOT NULL,
+    PRIMARY KEY (EID)
+);
+
+INSERT INTO Disasters (EID,Title,Street,City,ZIP,State,Country,Email,CallCenterID,CreatedAT) VALUES ('123456','Test Event','Oakcrest Street','Iowa city',
+'52246','IA','USA','ABC123@gmail.com','1234567','2020-04-15');
+
+INSERT INTO Disasters (EID,Title,Street,City,ZIP,State,Country,Email,CallCenterID,CreatedAT) VALUES ('1234567','Test Event 2','Oakcrest Street','Iowa city',
+'52246','IA','USA','ABC123@gmail.com','1234567','2020-04-15');
+
+
 '''
 localhost:5000/signup
 
@@ -32,5 +53,20 @@ localhost:5000/signup
 	"Country": "USA",
 	"Phone": "3195128300"
 }
+
+{
+	"Email":"123456",
+	"Street": "Oakcrest Street",
+	"City": "Iowa city",
+	"ZIP": "52246",
+	"State": "IA",
+	"Country": "USA",
+	"Phone": "3195128300"
+    "Email":"ABC123@gmail.com",
+    "CallCenterID": "1234567",
+    "CreatedAT": "2020-04-15"
+}
+
+
 
 '''

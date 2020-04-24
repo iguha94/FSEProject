@@ -19,6 +19,7 @@ app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 cors = CORS(app, resources={r"/login": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/registration": {"origins": "http://localhost:3000"}})
+cors = CORS(app, resources={r"/query": {"origins": "http://localhost:3000"}})
 
 @app.before_request
 def con():
@@ -53,11 +54,8 @@ def changetoadmstatus():
 @app.route('/login',methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
 def login():
-    print('Here')
     mycursor = g.db.cursor()
     mycursor.execute('USE FSETEAM04')
-    print('Here2')
-    print (request.json)
     print('Email: ', request.json['payload']['Email'])
     print('PassWord: ', request.json['payload']['PassWord'])
     if not request.json or not 'Email' in request.json['payload'] or request.json['payload']['Email'] == '':
@@ -121,7 +119,6 @@ def signup():
         return jsonify({'Message': 'City is Mandatory'}), 200
     if 'Phone' not in request.json['payload']:
         return jsonify({'Message': 'Phone Number is Mandatory'}), 200
-    print('here3')
     LastName = request.json['payload']['LastName']
     FirstName = request.json['payload']['FirstName']
     Street = request.json['payload']['Street']
@@ -135,13 +132,39 @@ def signup():
     CurStatus=''
     sql = "INSERT INTO Users (LastName,FirstName,Street,City,ZIP,State,Country,Email,PassWord,Phone,Status,CurStatus) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s,%s,%s)"
     val = (LastName,FirstName,Street,City,ZIP,State,Country,EmailID,PassWord,Phone,Status,CurStatus)
-    print('here')
     mycursor.execute(sql, val)
     g.db.commit()
     g.db.close()
     return jsonify({'Message': 'Account Created Successfully'}), 200
 
 
+@app.route('/query',methods=['GET'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
+def query():
+    print('in query')
+    mycursor = g.db.cursor()
+    mycursor.execute('USE FSETEAM04')
+    sql = "SELECT * FROM Disasters"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    eventsarr=[]
+    for event in myresult:
+        jsonevent={}
+        jsonevent['ID']=event[0]
+        jsonevent['Title']=event[1]
+        jsonevent['Street']=event[2]
+        jsonevent['City']=event[3]
+        jsonevent['ZIP']=event[4]
+        jsonevent['State']=event[5]
+        jsonevent['Country']=event[6]
+        jsonevent['Email']=event[7]
+        jsonevent['CallCenterID']=event[8]
+        jsonevent['CreatedAt']=event[9]
+        eventsarr.append(jsonevent)
+
+    g.db.close()
+    print(eventsarr)
+    return jsonify({'Events': eventsarr}),200
 
 if __name__ == '__main__':
     app.run(debug=True)
