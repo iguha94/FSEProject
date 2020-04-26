@@ -10,7 +10,7 @@ import mysql.connector
 import base64
 import re
 from flask_cors import CORS, cross_origin
-
+import datetime
 
 
 regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
@@ -20,6 +20,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 cors = CORS(app, resources={r"/login": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/registration": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/query": {"origins": "http://localhost:3000"}})
+cors = CORS(app, resources={r"/event": {"origins": "http://localhost:3000"}})
 
 @app.before_request
 def con():
@@ -165,6 +166,44 @@ def query():
     g.db.close()
     print(eventsarr)
     return jsonify({'Events': eventsarr}),200
+
+@app.route('/event',methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
+def event():
+    print('In Create Event')
+    mycursor = g.db.cursor()
+    mycursor.execute('USE FSETEAM04')
+    Items = request.json['payload']['resources']
+    organization = request.json['payload']['organization']
+    disaster = request.json['payload']['disaster']
+    print(Items)
+    print(organization)
+    print(disaster)
+    EID = hash(datetime.datetime.now())
+    Street = 'Oakcrest Street'
+    City = 'Iowa City'
+    Zip = '52246'
+    State = 'IA'
+    Country = 'USA'
+    Date = str(datetime.date.today())
+    Email='Common@uiowa.edu'
+    sql = "INSERT INTO Disasters (EID,Title,Street,City,ZIP,State,Country,Email,CallCenterID,CreatedAT) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
+    val = (EID,disaster,Street,City,Zip,State,Country,Email,organization,Date)
+    mycursor.execute(sql, val)
+    g.db.commit()
+
+    cnt = 1
+    for item in Items:
+        print(item)
+        itemname = item['resourceType']
+        itemcnt = item['amount']
+        sql = "INSERT INTO ReqItem (EID,IID,ItemName,Requested,CallCenterID) VALUES ( %s, %s,%s,%s, %s)"
+        val = (EID,cnt,itemname,itemcnt,organization)
+        mycursor.execute(sql, val)
+        g.db.commit()
+        cnt = cnt + 1
+    g.db.close()
+    return jsonify({'Message': 'Event Created Successfully'}),200
 
 if __name__ == '__main__':
     app.run(debug=True)

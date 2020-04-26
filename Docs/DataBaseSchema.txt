@@ -31,6 +31,33 @@ CREATE TABLE Disasters (
     PRIMARY KEY (EID)
 );
 
+CREATE TABLE ReqItem (
+    EID varchar(255) NOT NULL,
+    IID varchar(255) NOT NULL,
+    ItemName varchar(255) NOT NULL,
+    Requested varchar(255) NOT NULL,
+    CallCenterID varchar(255) NOT NULL,
+    PRIMARY KEY (EID,IID)
+);
+
+CREATE TABLE ReqItem (
+    EID varchar(255) NOT NULL,
+    IID varchar(255) NOT NULL,
+    DonorID varchar(255) NOT NULL,
+    ItemName varchar(255) NOT NULL,
+    Requested varchar(255) NOT NULL,
+    Donated varchar(255) NOT NULL,
+    ReqCallCenterID varchar(255) NOT NULL,
+    DonCallCenterID varchar(255) NOT NULL,
+    DonatedAT varchar(255) NOT NULL,
+    Street varchar(255) NOT NULL,
+    City varchar(255) NOT NULL,
+    ZIP varchar(255) NOT NULL,
+    State varchar(255) NOT NULL,
+    Country varchar(255) NOT NULL,
+    PRIMARY KEY (EID,IID,DonorID)
+);
+
 INSERT INTO Disasters (EID,Title,Street,City,ZIP,State,Country,Email,CallCenterID,CreatedAT) VALUES ('123456','Test Event','Oakcrest Street','Iowa city',
 '52246','IA','USA','ABC123@gmail.com','1234567','2020-04-15');
 
