@@ -19,13 +19,9 @@ app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 cors = CORS(app, resources={r"/login": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/registration": {"origins": "http://localhost:3000"}})
-<<<<<<< HEAD
-cors = CORS(app, resources={r"/event":{"origins":"http://localhost:300"}})
-=======
 cors = CORS(app, resources={r"/query": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/event": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/subdonation": {"origins": "http://localhost:3000"}})
->>>>>>> e6cc29d83bef013932866e95b51277950c565af3
 
 @app.before_request
 def con():
@@ -142,17 +138,6 @@ def signup():
     g.db.commit()
     g.db.close()
     return jsonify({'Message': 'Account Created Successfully'}), 200
-
-<<<<<<< HEAD
-@app.route('/event',methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
-def request():
-	mycursor = g.db.cursor()
-	mycursor.execute('USE FSETEAM04')
-	print(request.json)
-	print(request.json['payload']['organization'])
-	return jsonify({'Message': 'Resources Successfully Requested'}), 200
-=======
 
 @app.route('/query',methods=['GET'])
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
@@ -275,8 +260,6 @@ def SubmitDonation():
     g.db.close()
     print('Donation Received')
     return jsonify({'Message': 'Donation Created Successfully'}),200
-
->>>>>>> e6cc29d83bef013932866e95b51277950c565af3
 
 if __name__ == '__main__':
     app.run(debug=True)
