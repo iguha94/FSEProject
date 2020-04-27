@@ -10,7 +10,7 @@ import mysql.connector
 import base64
 import re
 from flask_cors import CORS, cross_origin
-
+import datetime
 
 
 regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
@@ -19,7 +19,13 @@ app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 cors = CORS(app, resources={r"/login": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/registration": {"origins": "http://localhost:3000"}})
+<<<<<<< HEAD
 cors = CORS(app, resources={r"/event":{"origins":"http://localhost:300"}})
+=======
+cors = CORS(app, resources={r"/query": {"origins": "http://localhost:3000"}})
+cors = CORS(app, resources={r"/event": {"origins": "http://localhost:3000"}})
+cors = CORS(app, resources={r"/subdonation": {"origins": "http://localhost:3000"}})
+>>>>>>> e6cc29d83bef013932866e95b51277950c565af3
 
 @app.before_request
 def con():
@@ -54,11 +60,8 @@ def changetoadmstatus():
 @app.route('/login',methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
 def login():
-    print('Here')
     mycursor = g.db.cursor()
     mycursor.execute('USE FSETEAM04')
-    print('Here2')
-    print (request.json)
     print('Email: ', request.json['payload']['Email'])
     print('PassWord: ', request.json['payload']['PassWord'])
     if not request.json or not 'Email' in request.json['payload'] or request.json['payload']['Email'] == '':
@@ -122,7 +125,6 @@ def signup():
         return jsonify({'Message': 'City is Mandatory'}), 200
     if 'Phone' not in request.json['payload']:
         return jsonify({'Message': 'Phone Number is Mandatory'}), 200
-    print('here3')
     LastName = request.json['payload']['LastName']
     FirstName = request.json['payload']['FirstName']
     Street = request.json['payload']['Street']
@@ -136,12 +138,12 @@ def signup():
     CurStatus=''
     sql = "INSERT INTO Users (LastName,FirstName,Street,City,ZIP,State,Country,Email,PassWord,Phone,Status,CurStatus) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s,%s,%s)"
     val = (LastName,FirstName,Street,City,ZIP,State,Country,EmailID,PassWord,Phone,Status,CurStatus)
-    print('here')
     mycursor.execute(sql, val)
     g.db.commit()
     g.db.close()
     return jsonify({'Message': 'Account Created Successfully'}), 200
 
+<<<<<<< HEAD
 @app.route('/event',methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
 def request():
@@ -150,6 +152,131 @@ def request():
 	print(request.json)
 	print(request.json['payload']['organization'])
 	return jsonify({'Message': 'Resources Successfully Requested'}), 200
+=======
+
+@app.route('/query',methods=['GET'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
+def query():
+    print('in query')
+    mycursor = g.db.cursor()
+    mycursor.execute('USE FSETEAM04')
+    sql = "SELECT * FROM Disasters"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    eventsarr=[]
+    for event in myresult:
+        jsonevent={}
+        jsonevent['ID']=event[0]
+        jsonevent['Title']=event[1]
+        jsonevent['Street']=event[2]
+        jsonevent['City']=event[3]
+        jsonevent['ZIP']=event[4]
+        jsonevent['State']=event[5]
+        jsonevent['Country']=event[6]
+        jsonevent['Email']=event[7]
+        jsonevent['CallCenterID']=event[8]
+        jsonevent['CreatedAt']=event[9]
+        eventsarr.append(jsonevent)
+
+    g.db.close()
+    print(eventsarr)
+    return jsonify({'Events': eventsarr}),200
+
+@app.route('/event',methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
+def event():
+    print('In Create Event')
+    mycursor = g.db.cursor()
+    mycursor.execute('USE FSETEAM04')
+    Items = request.json['payload']['resources']
+    organization = request.json['payload']['organization']
+    disaster = request.json['payload']['disaster']
+    print(Items)
+    print(organization)
+    print(disaster)
+    EID = hash(datetime.datetime.now())
+    Street = 'Oakcrest Street'
+    City = 'Iowa City'
+    Zip = '52246'
+    State = 'IA'
+    Country = 'USA'
+    Date = str(datetime.date.today())
+    Email='Common@uiowa.edu'
+    sql = "INSERT INTO Disasters (EID,Title,Street,City,ZIP,State,Country,Email,CallCenterID,CreatedAT) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
+    val = (EID,disaster,Street,City,Zip,State,Country,Email,organization,Date)
+    mycursor.execute(sql, val)
+    g.db.commit()
+
+    cnt = 1
+    for item in Items:
+        print(item)
+        itemname = item['resourceType']
+        itemcnt = item['amount']
+        sql = "INSERT INTO ReqItem (EID,IID,ItemName,Requested,CallCenterID) VALUES ( %s, %s,%s,%s, %s)"
+        val = (EID,cnt,itemname,itemcnt,organization)
+        mycursor.execute(sql, val)
+        g.db.commit()
+        cnt = cnt + 1
+    g.db.close()
+    return jsonify({'Message': 'Event Created Successfully'}),200
+
+@app.route('/eventdetails',methods=['GET'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
+def eventdetails():
+    print('in event details extraction')
+    eventdetails={}
+    Itemarr=[]
+    EID = request.args.get('ID')
+    print('Event Id: ',EID)
+    mycursor = g.db.cursor()
+    mycursor.execute('USE FSETEAM04')
+    sql = "SELECT * FROM Disasters WHERE EID=%s"
+    val = (EID,)
+    mycursor.execute(sql, val)
+    eventdesc = mycursor.fetchall()
+    e = eventdesc[0]
+    eventdetails['EventName']=e[1]
+    eventdetails['Street']=e[2]
+    eventdetails['City']=e[3]
+    eventdetails['ZIP']=e[4]
+    eventdetails['State']=e[5]
+    eventdetails['Country']=e[6]
+    eventdetails['Creator']=e[7]
+    eventdetails['CallCenter']=e[8]
+    eventdetails['CreatedAt']=e[9]
+
+    itemarr=[]
+    sql = "SELECT * FROM ReqItem WHERE EID=%s"
+    val = (EID,)
+    mycursor.execute(sql, val)
+    allitems = mycursor.fetchall()
+    for item in allitems:
+        jsonevent={}
+        jsonevent['IID']=item[1]
+        jsonevent['ItemName']=item[2]
+        jsonevent['Requested']=item[3]
+        itemarr.append(jsonevent)
+    eventdetails['RItems']=itemarr
+    g.db.close()
+    return jsonify({'EventDetails': eventdetails}),200
+
+@app.route('/subdonation',methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
+def SubmitDonation():
+    print('In Create Event')
+    mycursor = g.db.cursor()
+    mycursor.execute('USE FSETEAM04')
+    DonatedItems = request.json['body']['data']
+    for item in DonatedItems:
+        sql = "INSERT INTO DonItem (EID,IID,DonorID,ItemName,Requested,Donated,ReqCallCenterID,DonCallCenterID,DonatedAT,Street,City,ZIP,State,Country) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        val = (item['EID'],item['IID'],item['DonorID'],item['ItemName'],item['Requested'],item['Donated'],item['ReqCallCenterID'],item['DonCallCenterID'],str(datetime.date.today()),item['Street'],item['City'],item['ZIP'],item['State'],item['Country'])
+        mycursor.execute(sql, val)
+        g.db.commit()
+    g.db.close()
+    print('Donation Received')
+    return jsonify({'Message': 'Donation Created Successfully'}),200
+
+>>>>>>> e6cc29d83bef013932866e95b51277950c565af3
 
 if __name__ == '__main__':
     app.run(debug=True)

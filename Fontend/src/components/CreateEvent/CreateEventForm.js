@@ -2,18 +2,36 @@ import React from "react"
 import './CreateEventForm.css';
 import axios from "axios";
 
+
 const Url='http://localhost:5000/';
 
 class CreateEventForm extends React.Component {
-    state = {
-        resources: [{resourceType:"", amount:""}],
-        organization: "",
-        disaster: ""
+    constructor(props, context){
+        super(props, context);
+        this.state = {
+            resources: [{resourceType:"", amount:""}],
+            organization: "",
+            disaster: ""
+        };
+        this.handleChangeResources = this.handleChangeResources.bind(this);
+        this.handleChangeOrg = this.handleChangeOrg.bind(this);
+        this.handleChangeDisaster = this.handleChangeDisaster.bind(this);
+        this.addResource = this.addResource.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        console.log('In Events page')
     }
+    
     handleChangeResources = (e) => {
+            var index = parseInt(e.target.getAttribute('data-id'))
+            console.log('current index: ',index)
             let resources = [...this.state.resources]
-            resources[e.target.dataset.id][e.target.className] = e.target.value.toUpperCase()
-            this.setState({resources: e.target.value});
+            console.log(resources)
+            var curjson = resources[index]
+            console.log('current resource count: ',curjson)
+            curjson[e.target.name] = e.target.value.toUpperCase()
+            resources[index] = curjson
+            console.log(resources)
+            this.setState({resources: resources});
     }
     handleChangeOrg = (e) => {
         this.setState({organization: e.target.value});
@@ -22,13 +40,17 @@ class CreateEventForm extends React.Component {
         this.setState({disaster: e.target.value});
     }
     addResource = (e) => {
-        this.setState((prevState) => ({
-            resources: [...prevState.resources, {resourceType:"", amount:""}],
-        }));
-    }
-    handleFormSubmit(e) {
         e.preventDefault();
-        console.log('In handle submit')
+        console.log("in add resource")
+        var newresource = {resourceType:"", amount:""}
+        var oldresources = this.state.resources
+        console.log(oldresources)
+        this.setState({resources: oldresources.concat(newresource)});
+        console.log(this.state.resources)
+    }
+    handleFormSubmit = (e) => {
+        e.preventDefault();
+        console.log('In handle submit'+this.state.resources)
         console.log('Organization: '+this.state.organization)
         console.log('# Resouces: '+this.state.resources.length)
         const payload = {
@@ -36,6 +58,7 @@ class CreateEventForm extends React.Component {
             organization: this.state.organization,
             disaster: this.state.disaster
         }
+        console.log(payload)
         axios({method:'post',
             url: Url+'event',
             data:{
@@ -52,40 +75,40 @@ class CreateEventForm extends React.Component {
         return (
                 <form onSubmit={this.handleSubmit} onChange={this.handleChange} className="Event-form" >
                     <label htmlFor="Organization">Organization</label>
-                    <input type="text" name="organization" id="organization" value={organization} className="Event-input" onChange={this.handleChangeOrg.bind(this)}/>
+                    <input type="text" name="organization" id="organization" value={organization} className="Event-input" onChange={this.handleChangeOrg}/>
                     <label htmlFor="disaster">Disaster Description</label>
-                    <input type="text" name="disaster" id="disaster" value={disaster} className="Event-input" onChange={this.handleChangeDisaster.bind(this)}/>
+                    <input type="text" name="disaster" id="disaster" value={disaster} className="Event-input" onChange={this.handleChangeDisaster}/>
                     <button className="Form-button" onClick={this.addResource}>Add new resource</button>
                     {
-                        resources.map((val, idx)=> {
+                        this.state.resources.map((val, idx)=> {
                             let resourceID = `resource-${idx}`, amountID = `amount-${idx}`
                             return (
                                 <div key={idx} className="Form-Div">
                                     <label htmlFor={resourceID}>{`Resource #${idx + 1}`}</label>
                                     <input
                                         type="text"
-                                        name={resourceID}
+                                        name="resourceType"
                                         data-id={idx}
                                         id={resourceID}
                                         value={resources[idx].resourceType}
                                         className="Event-input"
-                                        onChange={this.handleChangeResources.bind(this)}
+                                        onChange={this.handleChangeResources}
                                     />
                                     <label htmlFor={amountID}>Amount</label>
                                     <input
                                         type="text"
-                                        name={amountID}
+                                        name="amount"
                                         data-id={idx}
                                         id={amountID}
                                         value={resources[idx].amount}
                                         className="Event-input"
-                                        onChange={this.handleChangeResources.bind(this)}
+                                        onChange={this.handleChangeResources}
                                     />
                                 </div>
                         )
                     })
                 }
-                <input className="Form-button" type="submit" value="Submit" onSubmit={this.handleFormSubmit.bind(this)}/>
+                <input className="Form-button" type="submit" value="Submit" onClick={this.handleFormSubmit}/>
             </form>
         )
     }
