@@ -8,6 +8,7 @@ import './App.css';
 class App extends Component {
   constructor()
   {
+      console.log('here')
       super();
   }
   render() {
