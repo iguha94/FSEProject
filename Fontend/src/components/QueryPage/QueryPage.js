@@ -13,6 +13,7 @@ class QueryPage extends Component{
             validated: false,
             Events:[]
         };
+        this.handleDonation = this.handleDonation.bind(this);
         console.log('In query page')
     }
     componentDidMount() {
@@ -20,6 +21,11 @@ class QueryPage extends Component{
         axios.get(loginurl).then(data => {
             this.setState({Events: data['data']['Events']});
         }).catch(err=>console.log(err));
+    }
+
+    handleDonation = (e,id) => {
+        //console.log('Event ID: '+ id)
+        this.props.history.push("/donate?"+id);
     }
 
     render(){
@@ -46,7 +52,7 @@ class QueryPage extends Component{
                                         <small className="text-muted"><b>Created At :</b> {item.CreatedAt}</small>
                                         &nbsp;<small className="text-muted"><b>Created By :</b> {item.Email}</small>
                                         &nbsp;<small className="text-muted"><b>Location :</b> {item.Street}, {item.City}, {item.State}, {item.ZIP}, {item.Country}</small>
-
+                                        &nbsp;<button onClick={(e) => {this.handleDonation(e, item.ID)} }>Donate</button> 
                                     </div>
                                 </div>
                             </tr> 

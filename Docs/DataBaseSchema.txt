@@ -40,7 +40,7 @@ CREATE TABLE ReqItem (
     PRIMARY KEY (EID,IID)
 );
 
-CREATE TABLE ReqItem (
+CREATE TABLE DonItem (
     EID varchar(255) NOT NULL,
     IID varchar(255) NOT NULL,
     DonorID varchar(255) NOT NULL,

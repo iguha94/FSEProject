@@ -11,6 +11,7 @@ import LoginPage from './components/LoginPage/LoginPage';
 import RegistrationPage from './components/RegistrationPage/RegistrationPage';
 import QueryPage from './components/QueryPage/QueryPage';
 import CreateEventPage from "./components/CreateEvent/CreateEventPage";
+import Donate from "./components/DonationPage/Donate";
 
 
 ReactDOM.render(
@@ -21,6 +22,7 @@ ReactDOM.render(
           <Route path="/registration" component={RegistrationPage} />
           <Route path="/query" component={QueryPage} />
           <Route path="/event" component={CreateEventPage} />
+          <Route path="/donate" component={Donate} />
 		</Switch>
     </BrowserRouter>,
   document.getElementById('root')

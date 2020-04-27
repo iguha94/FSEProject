@@ -3,7 +3,6 @@ import { Panel, Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 
-//const Url='https://cors-anywhere.herokuapp.com/http://localhost:5000/'
 const Url='http://localhost:5000/'
 
 const divStyle = {
