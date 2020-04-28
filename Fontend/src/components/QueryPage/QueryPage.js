@@ -59,11 +59,16 @@ class QueryPage extends Component{
                                         &nbsp;<small className="text-muted"><b>Created By :</b> {item.Email}</small>
                                         &nbsp;<small className="text-muted"><b>Location :</b> {item.Street}, {item.City}, {item.State}, {item.ZIP}, {item.Country}</small>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         &nbsp;<button className="Query-button" onClick={(e) => {this.handleDonation(e, item.ID)} }>Donate</button>
 =======
                                         &nbsp;<button onClick={(e) => {this.handleDonation(e, item.ID)} }>Donate</button>
                                         &nbsp;<button onClick={(e) => {this.matchDonation(e, item.ID)} }>Match Donation</button>
 >>>>>>> 388ed397aae67cc178f8c94fcd3ea84e99a908be
+=======
+                                        &nbsp;<button onClick={(e) => {this.handleDonation(e, item.ID)} }>Donate</button>
+                                        &nbsp;<button onClick={(e) => {this.matchDonation(e, item.ID)} }>Match Donation</button>
+>>>>>>> 085ad70618c6e48d23d77f2837cac218c1867df0
                                     </div>
                                 </div>
                             </tr> 

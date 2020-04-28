@@ -172,16 +172,22 @@ class Donate extends React.Component{
                     <table>
                         <tr>
 <<<<<<< HEAD
+<<<<<<< HEAD
                             {/*<th className = "Donate-text">Item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>*/}
                             {/*<th className = "Donate-text">#Requested&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>*/}
                             {/*<th className = "Donate-text">#Donate&nbsp;&nbsp;&nbsp;&nbsp;</th>*/}
 =======
+=======
+>>>>>>> 085ad70618c6e48d23d77f2837cac218c1867df0
                             <th>Item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                             <th>#Requested&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                             <th>#Donate&nbsp;&nbsp;&nbsp;&nbsp;</th>
                             <th>#Donated&nbsp;&nbsp;&nbsp;&nbsp;</th>
                             <th>#Donor&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<<<<<<< HEAD
 >>>>>>> 388ed397aae67cc178f8c94fcd3ea84e99a908be
+=======
+>>>>>>> 085ad70618c6e48d23d77f2837cac218c1867df0
                         </tr>
                         {
                             this.state.RItems.length > 0 ?
@@ -192,12 +198,18 @@ class Donate extends React.Component{
                                             <small className="itemname">{item.ItemName}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.Requested}</small>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             &nbsp;<FormControl type="text" name="donor" id={item.IID} value={this.state.DonatedItems[item.IID]} className="Event-input" onChange={this.handleDonation}/>
 =======
                                             &nbsp;<input type="text" name="donor" id={item.IID} value={this.state.DonatedItems[item.IID]} className="Event-input" onChange={this.handleDonation}/>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.Donated}</small>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.DonorID}</small>
 >>>>>>> 388ed397aae67cc178f8c94fcd3ea84e99a908be
+=======
+                                            &nbsp;<input type="text" name="donor" id={item.IID} value={this.state.DonatedItems[item.IID]} className="Event-input" onChange={this.handleDonation}/>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.Donated}</small>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.DonorID}</small>
+>>>>>>> 085ad70618c6e48d23d77f2837cac218c1867df0
                                         </div>
                                     </tr> 
                                 

@@ -22,8 +22,6 @@ cors = CORS(app, resources={r"/registration": {"origins": "http://localhost:3000
 cors = CORS(app, resources={r"/query": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/event": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/subdonation": {"origins": "http://localhost:3000"}})
-cors = CORS(app, resources={r"/getmatchingdonation": {"origins": "http://localhost:3000"}})
-cors = CORS(app, resources={r"/insertmatchingdonation": {"origins": "http://localhost:3000"}})
 
 @app.before_request
 def con():
@@ -212,7 +210,7 @@ def event():
 def eventdetails():
     print('in event details extraction')
     eventdetails={}
-    #Itemarr=[]
+    Itemarr=[]
     EID = request.args.get('ID')
     print('Event Id: ',EID)
     mycursor = g.db.cursor()
@@ -232,17 +230,6 @@ def eventdetails():
     eventdetails['CallCenter']=e[8]
     eventdetails['CreatedAt']=e[9]
 
-    donationjson={}
-    sql = "SELECT * FROM alldonations WHERE EID=%s"
-    val = (EID,)
-    mycursor.execute(sql, val)
-    allitems = mycursor.fetchall()
-    for item in allitems:
-        djson={}
-        djson['Donated'] = item[5]
-        djson['DonorID']=item[2]
-        donationjson[item[1]] = djson
-
     itemarr=[]
     sql = "SELECT * FROM ReqItem WHERE EID=%s"
     val = (EID,)
@@ -250,21 +237,11 @@ def eventdetails():
     allitems = mycursor.fetchall()
     for item in allitems:
         jsonevent={}
-        djson={}
         jsonevent['IID']=item[1]
         jsonevent['ItemName']=item[2]
         jsonevent['Requested']=item[3]
-        jsonevent['Donated'] = '0'
-        jsonevent['DonorID']='NA'
-        if item[1] in donationjson:
-            jsonevent['Donated'] = donationjson[item[1]]['Donated']
-            jsonevent['DonorID']= donationjson[item[1]]['DonorID']
         itemarr.append(jsonevent)
-        #donationjson[item[1]] = djson
     eventdetails['RItems']=itemarr
-
-    #eventdetails['Confirmed']=donationjson
-    print(eventdetails)
     g.db.close()
     return jsonify({'EventDetails': eventdetails}),200
 
@@ -275,92 +252,14 @@ def SubmitDonation():
     mycursor = g.db.cursor()
     mycursor.execute('USE FSETEAM04')
     DonatedItems = request.json['body']['data']
-    Date = str(datetime.date.today())
     for item in DonatedItems:
         sql = "INSERT INTO DonItem (EID,IID,DonorID,ItemName,Requested,Donated,ReqCallCenterID,DonCallCenterID,DonatedAT,Street,City,ZIP,State,Country) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        val = (item['EID'],item['IID'],item['DonorID'],item['ItemName'],item['Requested'],item['Donated'],item['ReqCallCenterID'],item['DonCallCenterID'],Date,item['Street'],item['City'],item['ZIP'],item['State'],item['Country'])
+        val = (item['EID'],item['IID'],item['DonorID'],item['ItemName'],item['Requested'],item['Donated'],item['ReqCallCenterID'],item['DonCallCenterID'],str(datetime.date.today()),item['Street'],item['City'],item['ZIP'],item['State'],item['Country'])
         mycursor.execute(sql, val)
         g.db.commit()
     g.db.close()
     print('Donation Received')
     return jsonify({'Message': 'Donation Created Successfully'}),200
-
-@app.route('/getmatchingdonation',methods=['GET'])
-@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
-def GetMatchingDonation():
-    eventdetails={}
-    EID = request.args.get('ID')
-    print('Event Id: ',EID)
-    mycursor = g.db.cursor()
-    mycursor.execute('USE FSETEAM04')
-    sql = "SELECT * FROM Disasters WHERE EID=%s"
-    val = (EID,)
-    mycursor.execute(sql, val)
-    eventdesc = mycursor.fetchall()
-    e = eventdesc[0]
-    eventdetails['EventName']=e[1]
-    eventdetails['Street']=e[2]
-    eventdetails['City']=e[3]
-    eventdetails['ZIP']=e[4]
-    eventdetails['State']=e[5]
-    eventdetails['Country']=e[6]
-    eventdetails['Creator']=e[7]
-    eventdetails['CallCenter']=e[8]
-    eventdetails['CreatedAt']=e[9]
-
-    ditemjson={}
-    sql = "SELECT * FROM DonItem WHERE EID=%s"
-    val = (EID,)
-    mycursor.execute(sql, val)
-    allitems = mycursor.fetchall()
-    for item in allitems:
-        jsonevent={}
-        jsonevent['IID']=item[1]
-        jsonevent['ItemName']=item[3]
-        jsonevent['Requested']=item[4]
-        jsonevent['Donated']=item[5]
-        jsonevent['DonorID']=item[2]
-        jsonevent['Street']=item[9] 
-        jsonevent['City']=item[10]
-        jsonevent['ZIP']=item[11]
-        jsonevent['State']=item[12]
-        jsonevent['Country']=item[13]
-        ditemarr=[]
-        if jsonevent['IID'] not in ditemjson:
-            ditemarr.append(jsonevent)
-        else:
-            ditemarr = ditemjson[jsonevent['IID']]
-            ditemarr.append(jsonevent)
-        ditemjson[jsonevent['IID']] = ditemarr
-
-        finalditemarr=[]
-        for key in ditemjson:
-            finalditemarr.append(ditemjson[key])
-        eventdetails['MatchingDonations']=finalditemarr
-    g.db.close()
-    print(eventdetails)
-    return jsonify({'EventDetails': eventdetails}),200
-
-@app.route('/insertmatchingdonation',methods=['POST'])
-@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
-def InsertMatchingDonation():
-    print('In Create Event')
-    mycursor = g.db.cursor()
-    mycursor.execute('USE FSETEAM04')
-    DonatedItems = request.json['info']['Donations']
-    EventId = request.json['info']['EventId']
-    Date = str(datetime.date.today())
-    for key in DonatedItems:
-        item = DonatedItems[key]
-        print(EventId,item['IID'],item['DonorID'],item['ItemName'],item['Requested'],item['Donated'],Date,item['Street'],item['City'],item['ZIP'],item['State'],item['Country'])
-        sql = "INSERT INTO AllDonations (EID,IID,DonorID,ItemName,Requested,Donated,DonatedAT,Street,City,ZIP,State,Country) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        val = (EventId,item['IID'],item['DonorID'],item['ItemName'],item['Requested'],item['Donated'],Date,item['Street'],item['City'],item['ZIP'],item['State'],item['Country'])
-        mycursor.execute(sql, val)
-        g.db.commit()
-
-    g.db.close()
-    return jsonify({'Message': 'Donation Submitted Successfully'}),200
-
 
 if __name__ == '__main__':
     app.run(debug=True)
