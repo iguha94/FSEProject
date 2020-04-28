@@ -118,7 +118,11 @@ class CreateEventForm extends React.Component {
                     })
                 }
                 <input className="Form-button" type="submit" value="Submit" onClick={this.handleFormSubmit}/>
+<<<<<<< HEAD
             </Form>
+=======
+                </form>
+>>>>>>> 388ed397aae67cc178f8c94fcd3ea84e99a908be
         )
     }
 }

@@ -14,6 +14,7 @@ class QueryPage extends Component{
             Events:[]
         };
         this.handleDonation = this.handleDonation.bind(this);
+        this.matchDonation = this.matchDonation.bind(this);
         console.log('In query page')
     }
     componentDidMount() {
@@ -27,6 +28,11 @@ class QueryPage extends Component{
         //console.log('Event ID: '+ id)
         this.props.history.push("/donate?"+id);
     }
+    
+    matchDonation = (e,id) =>{
+        this.props.history.push("/adminmatch?"+id);
+    }
+
 
     render(){
         return(
@@ -52,7 +58,12 @@ class QueryPage extends Component{
                                         <small className="text-muted"><b>Created At :</b> {item.CreatedAt}</small>
                                         &nbsp;<small className="text-muted"><b>Created By :</b> {item.Email}</small>
                                         &nbsp;<small className="text-muted"><b>Location :</b> {item.Street}, {item.City}, {item.State}, {item.ZIP}, {item.Country}</small>
+<<<<<<< HEAD
                                         &nbsp;<button className="Query-button" onClick={(e) => {this.handleDonation(e, item.ID)} }>Donate</button>
+=======
+                                        &nbsp;<button onClick={(e) => {this.handleDonation(e, item.ID)} }>Donate</button>
+                                        &nbsp;<button onClick={(e) => {this.matchDonation(e, item.ID)} }>Match Donation</button>
+>>>>>>> 388ed397aae67cc178f8c94fcd3ea84e99a908be
                                     </div>
                                 </div>
                             </tr> 
