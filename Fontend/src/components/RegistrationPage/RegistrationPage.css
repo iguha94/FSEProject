@@ -9,23 +9,23 @@
     vertical-align: middle;
 }
 .RegistrationPage{
-    /*align-items: center;*/
     justify-content: center;
-    background-color: white;
+    background-color: darkseagreen;
+    background-size: cover;
     margin: auto;
     display: flex;
-    background-size: cover;
+    overflow: auto;
     flex-direction: column;
-    /*padding-top: 125px;*/
+    padding-top: 145px;
 }
 
-.title{
+.Reg-title{
     align-self: center;
+    padding-top: 50px;
 }
 
 .Reg-header {
     background-color: #555;
-    /*position: fixed;*/
     top: 0;
     left: 0;
     right: 0;

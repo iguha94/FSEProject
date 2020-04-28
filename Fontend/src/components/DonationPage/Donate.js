@@ -2,6 +2,9 @@ import React from "react"
 import axios from "axios";
 import './Donate.css';
 import NavBar from "../NavBar/NavBar";
+import Form from "react-bootstrap/lib/Form";
+import {FormGroup} from "react-bootstrap";
+import FormControl from "react-bootstrap/lib/FormControl";
 
 const Url='http://localhost:5000/'
 
@@ -133,7 +136,7 @@ class Donate extends React.Component{
                     <NavBar className="Nav-Bar"/>
                 </header>
                 <h2>Donate Disaster Resources</h2>
-                <form onSubmit={this.handleSubmitDonation} className="Event-form" >
+                <Form onSubmit={this.handleSubmitDonation} className="Event-form" >
                     <label htmlFor="Organization"><b>Organization: </b> {eventparams['CallCenter']}</label>
                     <br></br>
                     <label htmlFor="DisasterTitle"><b>Disaster Title: </b> {eventparams['EventName']}</label>
@@ -147,26 +150,28 @@ class Donate extends React.Component{
                     <br></br>
                     <label htmlFor="disaster"><b>Donor's Address:</b></label>
                     <br></br>
+                    <FormGroup controlId="formDonate">
                     <label htmlFor="disaster"><b>Street: </b></label>
-                    <input type="text" name="donor" id="street" value={this.state.dstreet} className="Event-input" onChange={this.handlestreetchange}/>
+                    <FormControl type="text" name="donor" id="street" value={this.state.dstreet} className="Event-input" onChange={this.handlestreetchange}/>
                     <label htmlFor="disaster"><b>City: </b></label>
-                    <input type="text" name="donor" id="city" value={this.state.dcity} className="Event-input" onChange={this.handlecitychage}/>
+                    <FormControl type="text" name="donor" id="city" value={this.state.dcity} className="Event-input" onChange={this.handlecitychage}/>
                     <label htmlFor="disaster"><b>State: </b></label>
-                    <input type="text" name="donor" id="state" value={this.state.dstate} className="Event-input" onChange={this.handlestatechange}/>
+                    <FormControl type="text" name="donor" id="state" value={this.state.dstate} className="Event-input" onChange={this.handlestatechange}/>
                     <label htmlFor="disaster"><b>ZIP: </b></label>
-                    <input type="text" name="donor" id="ZIP" value={this.state.dzip} className="Event-input" onChange={this.handlezipchange}/>
+                    <FormControl type="text" name="donor" id="ZIP" value={this.state.dzip} className="Event-input" onChange={this.handlezipchange}/>
                     <label htmlFor="disaster"><b>Country: </b></label>
-                    <input type="text" name="donor" id="country" value={this.state.dcountry} className="Event-input" onChange={this.handlecountrychange}/>
+                    <FormControl type="text" name="donor" id="country" value={this.state.dcountry} className="Event-input" onChange={this.handlecountrychange}/>
+                    </FormGroup>
                     <br></br>
                     <label htmlFor="disaster"><b>Donor's Email</b></label>
-                    <input type="text" name="donor" id="donor" value={this.state.Donor} className="Event-input" onChange={this.handleDonorNameChange}/>
+                    <FormControl type="text" name="donor" id="donor" value={this.state.Donor} className="Event-input" onChange={this.handleDonorNameChange}/>
                     <br></br>
                     <label htmlFor="AllItems"><b>Requested Items: </b></label>
                     <table>
                         <tr>
-                            <th>Item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                            <th>#Requested&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                            <th>#Donate&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            {/*<th className = "Donate-text">Item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>*/}
+                            {/*<th className = "Donate-text">#Requested&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>*/}
+                            {/*<th className = "Donate-text">#Donate&nbsp;&nbsp;&nbsp;&nbsp;</th>*/}
                         </tr>
                         {
                             this.state.RItems.length > 0 ?
@@ -176,17 +181,17 @@ class Donate extends React.Component{
                                         <div>
                                             <small className="itemname">{item.ItemName}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.Requested}</small>
-                                            &nbsp;<input type="text" name="donor" id={item.IID} value={this.state.DonatedItems[item.IID]} className="Event-input" onChange={this.handleDonation}/>
+                                            &nbsp;<FormControl type="text" name="donor" id={item.IID} value={this.state.DonatedItems[item.IID]} className="Event-input" onChange={this.handleDonation}/>
                                         </div>
                                     </tr> 
                                 
                                 );
                             }):
                             []
-                        } 
+                        }
                     </table>
-                    <input className="Form-button" type="submit" value="Submit" onClick={this.handleSubmitDonation}/>
-            </form>
+                    <FormControl className="Form-button" type="submit" value="Submit" onClick={this.handleSubmitDonation}/>
+            </Form>
             </div>
         )
     }

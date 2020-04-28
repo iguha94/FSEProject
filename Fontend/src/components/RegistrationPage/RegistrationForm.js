@@ -5,7 +5,6 @@ import axios from 'axios';
 const Url='http://localhost:5000/'
 
 const divStyle = {
-    display: 'table',
     alignItems: 'center',
     margin: 'auto',
 };
@@ -15,7 +14,7 @@ const panelStyle = {
     border: 0,
     paddingLeft: 20,
     paddingRight: 20,
-    width: 300,
+    paddingTop: 10,
     alignItems: 'center',
 };
 

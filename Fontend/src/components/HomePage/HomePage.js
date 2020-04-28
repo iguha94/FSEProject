@@ -3,7 +3,7 @@ import './HomePage.css';
 import {Panel} from "react-bootstrap";
 
 const divStyle = {
-    display: 'table',
+    display: 'flex',
     alignItems: 'center',
     margin: 'auto',
 };
@@ -13,7 +13,6 @@ const panelStyle = {
     border: 0,
     paddingLeft: 20,
     paddingRight: 20,
-    width: 300,
 };
 
 class HomePage extends Component{
@@ -22,12 +21,7 @@ class HomePage extends Component{
             <div style={divStyle} className="HomePage">
                 <Panel style={panelStyle}>
                     <div className="Home-body">
-                        <h2>Home Page</h2>
-                        <div className="search-input">
-                            <input type="text" className="search-input" placeholder="Search..." />
-                            <ul>
-                            </ul>
-                        </div>
+                        <h1 className="Home-title"> Help Someone In Need, Today</h1>
                     </div>
                 </Panel>
             </div>

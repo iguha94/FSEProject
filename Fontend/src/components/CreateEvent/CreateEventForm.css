@@ -1,9 +1,9 @@
 .Event-form {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Roboto, sans-serif;
     width: 50%;
     margin: 1rem auto;
     padding: 1rem;
-    border: 0.15rem solid #000;
+    /*border: 0.15rem solid darkolivegreen;*/
     top: 130px;
 }
 
@@ -19,16 +19,16 @@
     margin: 1rem auto;
     width: 50%;
     padding: 1rem;
-    border: 0.15rem solid #000;
+    border: 0.15rem solid rgb(115,140,115);
 }
 
 .Event-form {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Roboto, sans-serif;
     width: 50%;
     margin: 1rem auto;
     padding: 1rem;
-    border: 0.15rem solid #000;
     top: 130px;
+    background-color: darkseagreen;
 }
 
 .Event-input {
@@ -43,5 +43,5 @@
     margin: 1rem auto;
     width: 50%;
     padding: 1rem;
-    border: 0.15rem solid #000;
+    /*border: 0.15rem solid darkolivegreen;*/
 }

@@ -1,25 +1,36 @@
 .HomePage {
-    display: inline-flex;
-    background-color: white;
-    margin: auto;
-    background-size: cover;
+    display: flex;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(152,251,152, 0.5);
+    background-image: url('lendahand.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .Home-body {
     display: flex;
     flex-direction: column;
     justify-items: right;
-    height: 100%;
-    width: 100%;
     background-size: cover;
     font-family: sans-serif;
-    margin-bottom: 130px;
     text-align: center;
-    padding-top: 60%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    width: 100%;
 }
 
-.search-input{
+.Home-title{
+    justify-self: center;
+    align-self: center;
+    display: inline-table;
     width: 100%;
+    height: 100%;
+    font-family: Roboto, sans-serif;
+    font-style: initial;
+    font-size: 48px;
 }

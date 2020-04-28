@@ -25,7 +25,7 @@ cors = CORS(app, resources={r"/subdonation": {"origins": "http://localhost:3000"
 
 @app.before_request
 def con():
-  g.db = mysql.connector.connect(user='root', password='',
+  g.db = mysql.connector.connect(user='root', password='root',
                                 host='localhost', database='FSETEAM04',
                                 auth_plugin='mysql_native_password')
 

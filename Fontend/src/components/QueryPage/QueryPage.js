@@ -30,7 +30,7 @@ class QueryPage extends Component{
 
     render(){
         return(
-            <div> 
+            <div className = "QueryPage">
                 <header className="Reg-header">
                     <NavBar className="Nav-Bar"/>
                 </header>
@@ -42,7 +42,7 @@ class QueryPage extends Component{
                     return(
                         
                             <tr>   
-                                <div>
+                                <div className = "table">
                                     <div className="card">
                                         <div className="card-body">
                                             <p className="card-text"> {item.Title} </p>
@@ -52,7 +52,7 @@ class QueryPage extends Component{
                                         <small className="text-muted"><b>Created At :</b> {item.CreatedAt}</small>
                                         &nbsp;<small className="text-muted"><b>Created By :</b> {item.Email}</small>
                                         &nbsp;<small className="text-muted"><b>Location :</b> {item.Street}, {item.City}, {item.State}, {item.ZIP}, {item.Country}</small>
-                                        &nbsp;<button onClick={(e) => {this.handleDonation(e, item.ID)} }>Donate</button> 
+                                        &nbsp;<button className="Query-button" onClick={(e) => {this.handleDonation(e, item.ID)} }>Donate</button>
                                     </div>
                                 </div>
                             </tr> 
