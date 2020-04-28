@@ -170,13 +170,6 @@ class Donate extends React.Component{
                     <br></br>
                     <label htmlFor="AllItems"><b>Requested Items: </b></label>
                     <table>
-                        <tr>
-                            <th>Item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                            <th>#Requested&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                            <th>#Donate&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                            <th>#Donated&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                            <th>#Donor&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                        </tr>
                         {
                             this.state.RItems.length > 0 ?
                             this.state.RItems.map((item,index) => {
@@ -185,9 +178,10 @@ class Donate extends React.Component{
                                         <div>
                                             <small className="itemname">{item.ItemName}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.Requested}</small>
-                                            &nbsp;<input type="text" name="donor" id={item.IID} value={this.state.DonatedItems[item.IID]} className="Event-input" onChange={this.handleDonation}/>
+                                            &nbsp;<FormControl type="text" name="donor" id={item.IID} value={this.state.DonatedItems[item.IID]} className="Event-input" onChange={this.handleDonation}/>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.Donated}</small>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.DonorID}</small>
+
                                         </div>
                                     </tr> 
                                 

@@ -2,6 +2,7 @@ import React from "react"
 import './AdminMatching.css';
 import axios from "axios";
 import NavBar from "../NavBar/NavBar";
+import Form from "react-bootstrap/lib/Form";
 
 const Url='http://localhost:5000/'
 
@@ -69,10 +70,11 @@ class AdminMatch extends React.Component{
     render(){
         let {eventparams, MatchedItems, Eventid} = this.state
         return(
-            <div>
+            <div className="AdminMatchPage">
                 <header className="Event-header">
                         <NavBar className="Nav-Bar"/>
                 </header>
+                <Form className = "Match-form">
                 <label htmlFor="Organization"><b>Organization: </b> {eventparams['CallCenter']}</label>
                 <br></br>
                 <label htmlFor="DisasterTitle"><b>Disaster Title: </b> {eventparams['EventName']}</label>
@@ -88,26 +90,27 @@ class AdminMatch extends React.Component{
                     MatchedItems.length>0 ?
                     MatchedItems.map((itemarr,idx) =>{
                     return(
-                        <form>
+                        <Form>
                             {
                                 itemarr.length>0 ?
                                 itemarr.map((item,index) =>{
                                     return(
                                         <div>
-                                        <input type="radio" data-id={idx} id={index} name={item.IID} value="donate" onChange={this.seldonation}/>
-                                        <label for="donation" > <b> Item Name: </b>{item.ItemName} <b>Requested: </b>{item.Requested} <b>Donated: </b>{item.Requested} <b>Donor: </b>{item.DonorID} 
+                                        <input className="Match-radio" type="radio" data-id={idx} id={index} name={item.IID} value="donate" onChange={this.seldonation}/>
+                                        <label className="Match-label" for="donation" > <b> Item Name: </b>{item.ItemName} <b>Requested: </b>{item.Requested} <b>Donated: </b>{item.Requested} <b>Donor: </b>{item.DonorID}
                                                 <b> From: </b>{item.City},{item.State},{item.Country}</label>
                                         </div>
                                     )
                                 }):[]
                             }
                             
-                        </form>
+                        </Form>
                     )
                     }):
                     []
                 }
-                <input type="submit" value="Submit Donations" onClick={this.choosedonation}></input>
+                <input className="Match-button" type="submit" value="Submit Donations" onClick={this.choosedonation}/>
+                </Form>
             </div>
         );
     }

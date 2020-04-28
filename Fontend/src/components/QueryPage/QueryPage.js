@@ -58,8 +58,9 @@ class QueryPage extends Component{
                                         <small className="text-muted"><b>Created At :</b> {item.CreatedAt}</small>
                                         &nbsp;<small className="text-muted"><b>Created By :</b> {item.Email}</small>
                                         &nbsp;<small className="text-muted"><b>Location :</b> {item.Street}, {item.City}, {item.State}, {item.ZIP}, {item.Country}</small>
-                                        &nbsp;<button onClick={(e) => {this.handleDonation(e, item.ID)} }>Donate</button>
-                                        &nbsp;<button onClick={(e) => {this.matchDonation(e, item.ID)} }>Match Donation</button>
+
+                                        &nbsp;<button className="Donate-button" onClick={(e) => {this.handleDonation(e, item.ID)} }>Donate</button>
+                                        &nbsp;<button className="Donate-button" onClick={(e) => {this.matchDonation(e, item.ID)} }>Match Donation</button>
                                     </div>
                                 </div>
                             </tr> 
