@@ -26,9 +26,9 @@ cors = CORS(app, resources={r"/insertmatchingdonation": {"origins": "http://loca
 
 @app.before_request
 def con():
-  g.db = mysql.connector.connect(user='root', password='root',
+  g.db = mysql.connector.connect(user='root', password='',
                                 host='localhost', database='FSETEAM04',
-                                auth_plugin='mysql_native_password')
+                                auth_plugin='mysql_native_password') #passowrd is 'root' for mikayla
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -162,6 +162,7 @@ def query():
         jsonevent['Email']=event[7]
         jsonevent['CallCenterID']=event[8]
         jsonevent['CreatedAt']=event[9]
+        jsonevent['ClosedEvent']=event[10]
         eventsarr.append(jsonevent)
 
     g.db.close()
@@ -348,6 +349,16 @@ def InsertMatchingDonation():
     mycursor.execute('USE FSETEAM04')
     DonatedItems = request.json['info']['Donations']
     EventId = request.json['info']['EventId']
+    closedonation = request.json['info']['CloseDonation']
+    print('closedonation: ',closedonation)
+    if closedonation:
+        print('Closing Event')
+        sql = "UPDATE Disasters SET CloseEvent = %s where EID=%s"
+        val = (closedonation,EventId,)
+        mycursor.execute(sql, val)
+        g.db.commit()
+        print('Closed Event')
+
     Date = str(datetime.date.today())
     for key in DonatedItems:
         item = DonatedItems[key]

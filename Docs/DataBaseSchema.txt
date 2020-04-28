@@ -28,6 +28,7 @@ CREATE TABLE Disasters (
     Email varchar(255) NOT NULL,
     CallCenterID varchar(255) NOT NULL,
     CreatedAT DATE NOT NULL,
+    CloseEvent BOOL NOT NULL DEFAULT 0,
     PRIMARY KEY (EID)
 );
 
@@ -80,6 +81,8 @@ INSERT INTO Disasters (EID,Title,Street,City,ZIP,State,Country,Email,CallCenterI
 INSERT INTO Disasters (EID,Title,Street,City,ZIP,State,Country,Email,CallCenterID,CreatedAT) VALUES ('1234567','Test Event 2','Oakcrest Street','Iowa city',
 '52246','IA','USA','ABC123@gmail.com','1234567','2020-04-15');
 
+ALTER TABLE Disasters
+ADD COLUMN CloseEvent BOOL NOT NULL DEFAULT 0;
 
 '''
 localhost:5000/signup
