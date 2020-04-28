@@ -141,7 +141,6 @@ def signup():
     g.db.close()
     return jsonify({'Message': 'Account Created Successfully'}), 200
 
-
 @app.route('/query',methods=['GET'])
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
 def query():
