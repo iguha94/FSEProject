@@ -14,6 +14,7 @@ class Donate extends React.Component{
             Donor:"",
             RItems:"",
             DonatedItems:{},
+            ConfirmedDonations:{},
             dstreet:"",
             dcity:"",
             dstate:"",
@@ -100,7 +101,6 @@ class Donate extends React.Component{
         var prevdonations=this.state.DonatedItems
         prevdonations[e.target.id] = e.target.value
         this.setState({DonatedItems: prevdonations});
-        //this.state.DonatedItems[e.target.id]=e.target.value;
     }
 
     componentDidMount() {
@@ -115,6 +115,8 @@ class Donate extends React.Component{
           }).then(data => {
               this.setState({eventparams: data['data']['EventDetails']});
               this.setState({RItems: data['data']['EventDetails']['RItems']});
+              //this.setState({ConfirmedDonations: data['data']['EventDetails']['Confirmed']});
+              //console.log(this.state.ConfirmedDonations);
               var initdonation={}
               for (var i = 0; i < this.state.RItems.length; i++){
                 var item=this.state.RItems[i];
@@ -125,8 +127,8 @@ class Donate extends React.Component{
     }
 
     render() {
-        let {eventparams, Eventid, Donor,RItems} = this.state
-        console.log(this.state.RItems);
+        let {eventparams, Eventid, Donor,RItems,ConfirmedDonations} = this.state
+        console.log('here')
         return (
             <div className="CreateDonationPage">
                 <header className="Event-header">
@@ -167,6 +169,8 @@ class Donate extends React.Component{
                             <th>Item&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                             <th>#Requested&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                             <th>#Donate&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            <th>#Donated&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            <th>#Donor&nbsp;&nbsp;&nbsp;&nbsp;</th>
                         </tr>
                         {
                             this.state.RItems.length > 0 ?
@@ -177,6 +181,8 @@ class Donate extends React.Component{
                                             <small className="itemname">{item.ItemName}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.Requested}</small>
                                             &nbsp;<input type="text" name="donor" id={item.IID} value={this.state.DonatedItems[item.IID]} className="Event-input" onChange={this.handleDonation}/>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.Donated}</small>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small className="reqitem">{item.DonorID}</small>
                                         </div>
                                     </tr> 
                                 
