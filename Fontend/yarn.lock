@@ -1492,6 +1492,11 @@ aproba@^1.0.3:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.1.1.tgz#95d3600f07710aa0e9298c726ad5ecf2eacbabab"
 
+arc-text@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/arc-text/-/arc-text-1.0.1.tgz#8d7162a47a17365b8a3f5a9d2d42348c2f1ec7f2"
+  integrity sha512-cnK4gxPY2qm4PWdzA0PS2JkPEq1kSTgc04vLKuY0srOQNqfpSlFqJ4zalELeUPT+L5NXufHACCr8lsvgj4hnvQ==
+
 are-we-there-yet@~1.1.2:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/are-we-there-yet/-/are-we-there-yet-1.1.4.tgz#bb5dca382bb94f05e15194373d16fd3ba1ca110d"
@@ -9721,6 +9726,13 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-arc-text@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-arc-text/-/react-arc-text-1.0.5.tgz#84c3524f743700b9e550a8178024429aff2b8583"
+  integrity sha512-rgPESwyB/dPsETD4JfOsHkbIaOr0JTr+h+KizoyCLVOfz9/d8Kg3FbMIERKLi8pFTpeGJ0fErZ+8yVXKA82voA==
+  dependencies:
+    arc-text "^1.0.1"
+
 react-bootstrap-tabs@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-bootstrap-tabs/-/react-bootstrap-tabs-1.0.2.tgz#32b8f8119c095493477b696e5a273b6e2adc6d0f"
@@ -9917,9 +9929,10 @@ react-router@^4.1.1:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-scripts@0.9.5:
+react-scripts@^0.9.5:
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-0.9.5.tgz#e9f05c8427e27131662a9b9d7a9786d1ff16bb3f"
+  integrity sha1-6fBchCficTFmKpudepeG0f8Wuz8=
   dependencies:
     autoprefixer "6.7.2"
     babel-core "6.22.1"
@@ -11203,8 +11216,9 @@ string_decoder@~1.1.1:
     safe-buffer "~5.1.0"
 
 stringstream@~0.0.4:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/stringstream/-/stringstream-0.0.5.tgz#4e484cd4de5a0bbbee18e46307710a8a81621878"
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/stringstream/-/stringstream-0.0.6.tgz#7880225b0d4ad10e30927d167a1d6f2fd3b33a72"
+  integrity sha512-87GEBAkegbBcweToUrdzf3eLhWNg06FJTebl4BVJz/JgWy8CvEr9dRtX5qWphiynMSQlxxi+QqN0z5T32SLlhA==
 
 strip-ansi@3.0.1, strip-ansi@^3.0.0, strip-ansi@^3.0.1:
   version "3.0.1"
