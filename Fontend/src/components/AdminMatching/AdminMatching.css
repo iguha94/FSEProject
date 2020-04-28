@@ -1,6 +1,5 @@
 .Event-header{
     background-color: #555;
-    /*position: fixed;*/
     top: 0;
     left: 0;
     right: 0;
@@ -9,8 +8,6 @@
     box-shadow: 0 0 25px 0 black;
     display: flex;
     flex-direction: row;
-    /*justify-content: space-between;*/
-    /*justify-items: center;*/
     width: 100%;
     z-index: 99;
 }
@@ -22,4 +19,44 @@
     justify-items: center;
     padding-left: 5%;
     padding-right: 5%;
+}
+
+.AdminMatchPage{
+    align-items: center;
+    margin: auto;
+    overflow: auto;
+    display: flex;
+    background-size: cover;
+    flex-direction: column;
+    background-color: darkseagreen;
+}
+
+.Match-form{
+    padding-top: 20px;
+    align-self: center;
+    align-items: inherit;
+}
+
+.Match-button{
+    width: 25%;
+    font-family: Roboto, sans-serif;
+}
+
+.Match-radio{
+    padding-left: 10px;
+}
+
+.Match-label{
+    padding:10px;
+    display: inline-block;
+}
+
+label{
+    padding: 10px;
+}
+
+b{
+    font-family: Roboto, sans-serif;
+    padding: 10px;
+    font-weight: bold;
 }

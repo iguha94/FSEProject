@@ -33,6 +33,10 @@
     padding-right: 2px;
 }
 
+.Event-form{
+    width:50%;
+}
+
 .CreateDonationPage{
     align-items: center;
     background-color: darkseagreen;
