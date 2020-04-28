@@ -22,7 +22,7 @@ class CreateEventPage extends Component {
                 <header className="Event-header">
                     <NavBar className="Nav-Bar"/>
                 </header>
-                <h2>Request Disaster Resources</h2>
+                <h2 className = "title">Request Disaster Resources</h2>
                 <CreateEventForm reRoute={this.reRoute} className="Event-body"/>
             </div>
         );

@@ -27,7 +27,7 @@ cors = CORS(app, resources={r"/insertmatchingdonation": {"origins": "http://loca
 
 @app.before_request
 def con():
-  g.db = mysql.connector.connect(user='root', password='',
+  g.db = mysql.connector.connect(user='root', password='root',
                                 host='localhost', database='FSETEAM04',
                                 auth_plugin='mysql_native_password')
 

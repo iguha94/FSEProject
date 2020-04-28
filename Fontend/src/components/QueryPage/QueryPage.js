@@ -36,7 +36,7 @@ class QueryPage extends Component{
 
     render(){
         return(
-            <div> 
+            <div className = "QueryPage">
                 <header className="Reg-header">
                     <NavBar className="Nav-Bar"/>
                 </header>
@@ -48,7 +48,7 @@ class QueryPage extends Component{
                     return(
                         
                             <tr>   
-                                <div>
+                                <div className = "table">
                                     <div className="card">
                                         <div className="card-body">
                                             <p className="card-text"> {item.Title} </p>

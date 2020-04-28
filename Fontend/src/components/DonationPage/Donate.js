@@ -2,6 +2,9 @@ import React from "react"
 import axios from "axios";
 import './Donate.css';
 import NavBar from "../NavBar/NavBar";
+import Form from "react-bootstrap/lib/Form";
+import {FormGroup} from "react-bootstrap";
+import FormControl from "react-bootstrap/lib/FormControl";
 
 const Url='http://localhost:5000/'
 
@@ -134,8 +137,8 @@ class Donate extends React.Component{
                 <header className="Event-header">
                     <NavBar className="Nav-Bar"/>
                 </header>
-                <h2>Donate Disaster Resources</h2>
-                <form onSubmit={this.handleSubmitDonation} className="Event-form" >
+                <h2 className="Donate-title">Donate Disaster Resources</h2>
+                <Form onSubmit={this.handleSubmitDonation} className="Event-form" >
                     <label htmlFor="Organization"><b>Organization: </b> {eventparams['CallCenter']}</label>
                     <br></br>
                     <label htmlFor="DisasterTitle"><b>Disaster Title: </b> {eventparams['EventName']}</label>
@@ -149,19 +152,21 @@ class Donate extends React.Component{
                     <br></br>
                     <label htmlFor="disaster"><b>Donor's Address:</b></label>
                     <br></br>
+                    <FormGroup controlId="formDonate">
                     <label htmlFor="disaster"><b>Street: </b></label>
-                    <input type="text" name="donor" id="street" value={this.state.dstreet} className="Event-input" onChange={this.handlestreetchange}/>
+                    <FormControl type="text" name="donor" id="street" value={this.state.dstreet} className="Event-input" onChange={this.handlestreetchange}/>
                     <label htmlFor="disaster"><b>City: </b></label>
-                    <input type="text" name="donor" id="city" value={this.state.dcity} className="Event-input" onChange={this.handlecitychage}/>
+                    <FormControl type="text" name="donor" id="city" value={this.state.dcity} className="Event-input" onChange={this.handlecitychage}/>
                     <label htmlFor="disaster"><b>State: </b></label>
-                    <input type="text" name="donor" id="state" value={this.state.dstate} className="Event-input" onChange={this.handlestatechange}/>
+                    <FormControl type="text" name="donor" id="state" value={this.state.dstate} className="Event-input" onChange={this.handlestatechange}/>
                     <label htmlFor="disaster"><b>ZIP: </b></label>
-                    <input type="text" name="donor" id="ZIP" value={this.state.dzip} className="Event-input" onChange={this.handlezipchange}/>
+                    <FormControl type="text" name="donor" id="ZIP" value={this.state.dzip} className="Event-input" onChange={this.handlezipchange}/>
                     <label htmlFor="disaster"><b>Country: </b></label>
-                    <input type="text" name="donor" id="country" value={this.state.dcountry} className="Event-input" onChange={this.handlecountrychange}/>
+                    <FormControl type="text" name="donor" id="country" value={this.state.dcountry} className="Event-input" onChange={this.handlecountrychange}/>
+                    </FormGroup>
                     <br></br>
                     <label htmlFor="disaster"><b>Donor's Email</b></label>
-                    <input type="text" name="donor" id="donor" value={this.state.Donor} className="Event-input" onChange={this.handleDonorNameChange}/>
+                    <FormControl type="text" name="donor" id="donor" value={this.state.Donor} className="Event-input" onChange={this.handleDonorNameChange}/>
                     <br></br>
                     <label htmlFor="AllItems"><b>Requested Items: </b></label>
                     <table>
@@ -189,10 +194,10 @@ class Donate extends React.Component{
                                 );
                             }):
                             []
-                        } 
+                        }
                     </table>
-                    <input className="Form-button" type="submit" value="Submit" onClick={this.handleSubmitDonation}/>
-            </form>
+                    <FormControl className="Form-button" type="submit" value="Submit" onClick={this.handleSubmitDonation}/>
+            </Form>
             </div>
         )
     }

@@ -12,7 +12,7 @@ const divStyle = {
 };
 
 const panelStyle = {
-  backgroundColor: 'rgba(255,255,255,0.5)',
+  // backgroundColor: 'rgba(255,255,255,0.5)',
   border: 0,
   //paddingLeft: 20,
   //paddingRight: 20,

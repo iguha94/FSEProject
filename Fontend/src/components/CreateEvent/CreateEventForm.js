@@ -1,6 +1,9 @@
 import React from "react"
 import './CreateEventForm.css';
 import axios from "axios";
+import FormControl from "react-bootstrap/lib/FormControl";
+import FormGroup from "react-bootstrap/lib/FormGroup";
+import Form from "react-bootstrap/lib/Form";
 
 
 const Url='http://localhost:5000/';
@@ -73,19 +76,22 @@ class CreateEventForm extends React.Component {
     render() {
         let {organization, disaster, resources} = this.state
         return (
-                <form onSubmit={this.handleSubmit} onChange={this.handleChange} className="Event-form" >
+                <Form onSubmit={this.handleSubmit} onChange={this.handleChange} className="Event-form" >
                     <label htmlFor="Organization">Organization</label>
-                    <input type="text" name="organization" id="organization" value={organization} className="Event-input" onChange={this.handleChangeOrg}/>
+                    <FormGroup controlId="formOrg">
+                    <FormControl type="text" name="organization" id="organization" value={organization} className="Event-input" onChange={this.handleChangeOrg}/>
                     <label htmlFor="disaster">Disaster Description</label>
-                    <input type="text" name="disaster" id="disaster" value={disaster} className="Event-input" onChange={this.handleChangeDisaster}/>
+                    <FormControl type="text" name="disaster" id="disaster" value={disaster} className="Event-input" onChange={this.handleChangeDisaster}/>
                     <button className="Form-button" onClick={this.addResource}>Add new resource</button>
+                    </FormGroup>
                     {
                         this.state.resources.map((val, idx)=> {
                             let resourceID = `resource-${idx}`, amountID = `amount-${idx}`
                             return (
                                 <div key={idx} className="Form-Div">
+                                    <FormGroup controlID = "formResource">
                                     <label htmlFor={resourceID}>{`Resource #${idx + 1}`}</label>
-                                    <input
+                                    <FormControl
                                         type="text"
                                         name="resourceType"
                                         data-id={idx}
@@ -94,8 +100,10 @@ class CreateEventForm extends React.Component {
                                         className="Event-input"
                                         onChange={this.handleChangeResources}
                                     />
+                                    </FormGroup>
+                                    <FormGroup controlID="formAmount">
                                     <label htmlFor={amountID}>Amount</label>
-                                    <input
+                                    <FormControl
                                         type="text"
                                         name="amount"
                                         data-id={idx}
@@ -104,12 +112,13 @@ class CreateEventForm extends React.Component {
                                         className="Event-input"
                                         onChange={this.handleChangeResources}
                                     />
+                                    </FormGroup>
                                 </div>
                         )
                     })
                 }
                 <input className="Form-button" type="submit" value="Submit" onClick={this.handleFormSubmit}/>
-                </form>
+            </Form>
         )
     }
 }

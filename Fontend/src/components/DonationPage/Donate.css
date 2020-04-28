@@ -1,6 +1,5 @@
 .Event-header{
     background-color: #555;
-    /*position: fixed;*/
     top: 0;
     left: 0;
     right: 0;
@@ -9,10 +8,10 @@
     box-shadow: 0 0 25px 0 black;
     display: flex;
     flex-direction: row;
-    /*justify-content: space-between;*/
-    /*justify-items: center;*/
     width: 100%;
     z-index: 99;
+    font-family: Roboto, sans-serif;
+
 }
 .Nav-Bar{
     display: flex;
@@ -22,15 +21,25 @@
     justify-items: center;
     padding-left: 5%;
     padding-right: 5%;
+    font-family: Roboto, sans-serif;
+}
+
+.Donate-title{
+    padding-top: 20px;
+    font-family: Roboto, sans-serif;
+}
+
+.Donate-text{
+    padding-right: 2px;
 }
 
 .CreateDonationPage{
     align-items: center;
-    /*justify-content: center;*/
-    background-color: white;
+    background-color: darkseagreen;
     margin: auto;
     display: flex;
     background-size: cover;
     flex-direction: column;
-    /*padding-top: 125px;*/
+    overflow: auto;
+    font-family: Roboto, sans-serif;
 }
