@@ -16,7 +16,7 @@ class App extends Component {
         <div className="App">
             <header className="Home-header">
                <NavBar className="Nav-Bar"/>
-            </header>,
+            </header>
             <HomePage/>
         </div>
     );
