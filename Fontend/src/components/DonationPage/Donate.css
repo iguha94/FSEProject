@@ -10,6 +10,8 @@
     flex-direction: row;
     width: 100%;
     z-index: 99;
+    font-family: Roboto, sans-serif;
+
 }
 .Nav-Bar{
     display: flex;
@@ -19,6 +21,12 @@
     justify-items: center;
     padding-left: 5%;
     padding-right: 5%;
+    font-family: Roboto, sans-serif;
+}
+
+.Donate-title{
+    padding-top: 20px;
+    font-family: Roboto, sans-serif;
 }
 
 .Donate-text{
@@ -33,5 +41,5 @@
     background-size: cover;
     flex-direction: column;
     overflow: auto;
-
+    font-family: Roboto, sans-serif;
 }
