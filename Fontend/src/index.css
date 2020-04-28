@@ -6,7 +6,51 @@ html, body, #root, #root>div {
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: Roboto, sans-serif;
   height: 100%;
   width: 100%
+}
+
+.wrapper {
+  height: 100%;
+  overflow: auto;
+  background: darkseagreen url("../public/img/hands.png") no-repeat fixed center center;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+}
+
+.wrapper h1 {
+  font-family: 'Amatic SC', cursive;
+  font-size: 64px;
+  color: rgb(115,140,115);
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  /* I think this works for centering? */
+  top: calc(25% - 0px);
+  -webkit-transform: translate(-50%, calc(-50% - 64px));
+  -ms-transform: translate(-50%, calc(-50% - 64px));
+  transform: translate(-50%, calc(-50% - 64px));
+}
+
+.wrapper h1 span {
+  position: absolute;
+}
+
+.wrapper img {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  min-width: 50%;
+  min-height: 50%;
+  width: 100%;
+  height: 100%;
+  position: center;
+  /* Darken the background image so our text is readable */
+  -webkit-filter: brightness(50%);
+  filter: brightness(50%);
 }

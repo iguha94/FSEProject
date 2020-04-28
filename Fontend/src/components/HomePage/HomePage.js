@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component, useRef} from 'react';
 import './HomePage.css';
 import {Panel} from "react-bootstrap";
+import Heading from "../Heading/Heading";
+import NavBar from "../NavBar/NavBar";
 
 const divStyle = {
     display: 'flex',
@@ -18,10 +20,10 @@ const panelStyle = {
 class HomePage extends Component{
     render() {
         return (
-            <div style={divStyle} className="HomePage">
+            <div style={divStyle} className= "wrapper">
                 <Panel style={panelStyle}>
                     <div className="Home-body">
-                        <h1 className="Home-title"> Help Someone In Need, Today</h1>
+                        <Heading text="Help Someone in Need, Today" arc={100} radius={650} />
                     </div>
                 </Panel>
             </div>
