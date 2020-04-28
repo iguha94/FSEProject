@@ -10,6 +10,7 @@ import base64
 import re
 from flask_cors import CORS, cross_origin
 import datetime
+import smtplib, ssl
 
 
 regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
@@ -188,7 +189,7 @@ def event():
     State = 'IA'
     Country = 'USA'
     Date = str(datetime.date.today())
-    Email='Common@uiowa.edu'
+    Email='indranil.guha21@gmail.com'
     sql = "INSERT INTO Disasters (EID,Title,Street,City,ZIP,State,Country,Email,CallCenterID,CreatedAT) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
     val = (EID,disaster,Street,City,Zip,State,Country,Email,organization,Date)
     mycursor.execute(sql, val)
@@ -358,6 +359,17 @@ def InsertMatchingDonation():
         mycursor.execute(sql, val)
         g.db.commit()
         print('Closed Event')
+        print('Recipient Email: ',request.json['info']['CreatorID'])
+        sender = "fseteam004@gmail.com"
+        recipient = request.json['info']['CreatorID']
+        password = "Password4!" # Your SMTP password for Gmail
+        subject = "Test email from Python"
+        text = "Hello from Python"
+        smtp_server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+        smtp_server.login(sender, password)
+        message = "Subject: {}\n\n{}".format(subject, text)
+        smtp_server.sendmail(sender, recipient, message)
+        smtp_server.close()
 
     Date = str(datetime.date.today())
     for key in DonatedItems:

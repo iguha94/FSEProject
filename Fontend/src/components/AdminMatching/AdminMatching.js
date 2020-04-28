@@ -34,6 +34,7 @@ class AdminMatch extends React.Component{
         e.preventDefault();
         var info={}
         info['EventId'] = this.state.Eventid;
+        info['CreatorID'] = this.state.eventparams['Creator'];
         info['Donations'] = this.state.SelectedDonations;
         info['CloseDonation']=this.state.CloseEvent;
         console.log(info)
