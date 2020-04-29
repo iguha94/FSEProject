@@ -10,7 +10,12 @@ import base64
 import re
 from flask_cors import CORS, cross_origin
 import datetime
+<<<<<<< HEAD
 from flask_jwt_extended import JWTManager, create_access_token
+=======
+import smtplib, ssl
+
+>>>>>>> c81d07ef8baa6edb9157591245254e64ea836497
 
 regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 
@@ -30,9 +35,9 @@ jwt = JWTManager(app)
 
 @app.before_request
 def con():
-  g.db = mysql.connector.connect(user='root', password='root',
+  g.db = mysql.connector.connect(user='root', password='',
                                 host='localhost', database='FSETEAM04',
-                                auth_plugin='mysql_native_password')
+                                auth_plugin='mysql_native_password') #passowrd is 'root' for mikayla
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -172,6 +177,7 @@ def query():
         jsonevent['Email']=event[7]
         jsonevent['CallCenterID']=event[8]
         jsonevent['CreatedAt']=event[9]
+        jsonevent['ClosedEvent']=event[10]
         eventsarr.append(jsonevent)
 
     g.db.close()
@@ -197,7 +203,7 @@ def event():
     State = 'IA'
     Country = 'USA'
     Date = str(datetime.date.today())
-    Email='Common@uiowa.edu'
+    Email='indranil.guha21@gmail.com'
     sql = "INSERT INTO Disasters (EID,Title,Street,City,ZIP,State,Country,Email,CallCenterID,CreatedAT) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s)"
     val = (EID,disaster,Street,City,Zip,State,Country,Email,organization,Date)
     mycursor.execute(sql, val)
@@ -358,6 +364,27 @@ def InsertMatchingDonation():
     mycursor.execute('USE FSETEAM04')
     DonatedItems = request.json['info']['Donations']
     EventId = request.json['info']['EventId']
+    closedonation = request.json['info']['CloseDonation']
+    print('closedonation: ',closedonation)
+    if closedonation:
+        print('Closing Event')
+        sql = "UPDATE Disasters SET CloseEvent = %s where EID=%s"
+        val = (closedonation,EventId,)
+        mycursor.execute(sql, val)
+        g.db.commit()
+        print('Closed Event')
+        print('Recipient Email: ',request.json['info']['CreatorID'])
+        sender = "fseteam004@gmail.com"
+        recipient = request.json['info']['CreatorID']
+        password = "Password4!" # Your SMTP password for Gmail
+        subject = "Test email from Python"
+        text = "Hello from Python"
+        smtp_server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+        smtp_server.login(sender, password)
+        message = "Subject: {}\n\n{}".format(subject, text)
+        smtp_server.sendmail(sender, recipient, message)
+        smtp_server.close()
+
     Date = str(datetime.date.today())
     for key in DonatedItems:
         item = DonatedItems[key]
