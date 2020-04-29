@@ -5,7 +5,6 @@ import Heading from "../Heading/Heading";
 import NavBar from "../NavBar/NavBar";
 
 const divStyle = {
-    display: 'flex',
     alignItems: 'center',
     margin: 'auto',
 };
@@ -13,8 +12,6 @@ const divStyle = {
 const panelStyle = {
     backgroundColor: 'rgba(255,255,255,0.5)',
     border: 0,
-    paddingLeft: 20,
-    paddingRight: 20,
 };
 
 class HomePage extends Component{
@@ -22,9 +19,8 @@ class HomePage extends Component{
         return (
             <div style={divStyle} className= "wrapper">
                 <Panel style={panelStyle}>
-                    <div className="Home-body">
+                    <NavBar className="Nav-Bar"/>
                         <Heading text="Help Someone in Need, Today" arc={100} radius={650} />
-                    </div>
                 </Panel>
             </div>
         );

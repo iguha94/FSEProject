@@ -26,7 +26,7 @@
 }
 
 .Nav-Bar{
-    display: flex;
+    /*display: flex;*/
     flex-direction: row;
     justify-content: space-between;
     justify-items: center;

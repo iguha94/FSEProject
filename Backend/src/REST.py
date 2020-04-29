@@ -10,13 +10,14 @@ import base64
 import re
 from flask_cors import CORS, cross_origin
 import datetime
+from flask_jwt_extended import JWTManager, create_access_token
 import smtplib, ssl
-
 
 regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['JWT_SECRET_KEY'] = 'secret'
 cors = CORS(app, resources={r"/login": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/registration": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/query": {"origins": "http://localhost:3000"}})
@@ -24,6 +25,9 @@ cors = CORS(app, resources={r"/event": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/subdonation": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/getmatchingdonation": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/insertmatchingdonation": {"origins": "http://localhost:3000"}})
+
+jwt = JWTManager(app)
+
 
 @app.before_request
 def con():
@@ -76,9 +80,12 @@ def login():
     print('here4',len(myresult))
     g.db.close()
     if len(myresult)!=1:
-        return jsonify({'Message': 'Email or Password is Incorrect'}),200
-    print('here3')
-    return jsonify({'Message': 'Logged in Successfully'}), 200
+        result = jsonify({'error': 'Email or Password is Incorrect'}),200
+    else:
+        print("Log-in Successful")
+        access_token = create_access_token(identity={'EmailID': EmailID})
+        result = jsonify({"token":access_token})
+    return result
 
 
 @app.route('/test',methods=['POST'])
@@ -132,14 +139,17 @@ def signup():
     Country = request.json['payload']['Country']
     PassWord = base64.b64encode(request.json['payload']['PassWord'].encode("utf-8"))
     Phone = request.json['payload']['Phone']
-    Status = 'Default'
+    AdminStatus = 'Default'
     CurStatus=''
-    sql = "INSERT INTO Users (LastName,FirstName,Street,City,ZIP,State,Country,Email,PassWord,Phone,Status,CurStatus) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s,%s,%s)"
-    val = (LastName,FirstName,Street,City,ZIP,State,Country,EmailID,PassWord,Phone,Status,CurStatus)
+    sql = "INSERT INTO Users (LastName,FirstName,Street,City,ZIP,State,Country,Email,PassWord,Phone,AdminStatus,CurStatus) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s,%s,%s)"
+    val = (LastName,FirstName,Street,City,ZIP,State,Country,EmailID,PassWord,Phone,AdminStatus,CurStatus)
     mycursor.execute(sql, val)
     g.db.commit()
     g.db.close()
-    return jsonify({'Message': 'Account Created Successfully'}), 200
+    print("Log-in Successful")
+    access_token = create_access_token(identity={'EmailID': EmailID})
+    result = jsonify({"token":access_token, "admin":AdminStatus})
+    return result
 
 @app.route('/query',methods=['GET'])
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])

@@ -37,7 +37,8 @@ class RegistrationForm extends Component {
           states: '',
           zip: '',
           country: '',
-          phone: ''
+          phone: '',
+            AdminStatus: false,
         };
     
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -51,6 +52,7 @@ class RegistrationForm extends Component {
         this.handlezipChange = this.handlezipChange.bind(this);
         this.handlecountryChange = this.handlecountryChange.bind(this);
         this.handlephoneChange = this.handlephoneChange.bind(this);
+        this.handleStatus = this.handleStatus.bind(this);
       }
 
     handleEmailChange(e) {
@@ -94,6 +96,14 @@ class RegistrationForm extends Component {
         this.setState({phone: e.target.value});
     }
 
+    handleStatus(e){
+        e.preventDefault();
+        console.log(e.target.value);
+        this.setState({
+            AdminStatus: !this.state.AdminStatus
+        });
+    }
+
     handleFormSubmit(e) {
         e.preventDefault();
         console.log('In handle submit')
@@ -110,7 +120,8 @@ class RegistrationForm extends Component {
        ZIP: this.state.zip,
        State: this.state.states,
        Country: this.state.country,
-       Phone: this.state.phone
+       Phone: this.state.phone,
+       AdminStatus: this.state.AdminStatus,
        }
        console.log(payload)
        axios({method:'post',
@@ -121,7 +132,13 @@ class RegistrationForm extends Component {
      }).then(data => {
        console.log(data);
        console.log("FORM SUBMITTED!");
-       this.props.reRoute('/');
+       localStorage.setItem('token', data['token']);
+       localStorage.setItem('admin', data['AdminStatus']);
+
+       console.log(localStorage.getItem('token'));
+       console.log(localStorage.getItem('admin'));
+
+      window.location.href = '/';
      }).catch(err=>console.log(err));
 
     }
@@ -164,6 +181,15 @@ class RegistrationForm extends Component {
                             <Button bsStyle="primary" type="submit" onClick={this.handleFormSubmit}>
                                 Submit
                             </Button>
+                        </FormGroup>
+                        <FormGroup>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={this.state.AdminStatus}
+                                    onChange={this.handleStatus} />
+                                Admin?
+                            </label>
                         </FormGroup>
                     </Form>
                 </Panel>

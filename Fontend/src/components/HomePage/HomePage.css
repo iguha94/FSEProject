@@ -1,5 +1,5 @@
 .HomePage {
-    display: flex;
+    /*display: flex;*/
     margin: 0 auto;
     align-items: center;
     justify-content: center;
@@ -22,6 +22,7 @@
     padding-top: 5%;
     padding-bottom: 5%;
     width: 100%;
+    overflow: no-display;
 }
 
 .Home-title{

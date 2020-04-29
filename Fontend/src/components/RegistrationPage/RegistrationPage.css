@@ -2,51 +2,27 @@
     margin: auto;
     width: 50%;
     background-size: cover;
-    align-items: center;
+    align-self: center;
     justify-content: center;
     display: table-cell;
     text-align: center;
     vertical-align: middle;
 }
 .RegistrationPage{
-    justify-content: center;
+    align-self: center;
     background-color: darkseagreen;
-    background-size: cover;
     margin: auto;
-    display: flex;
     overflow: auto;
+    display: flex;
+    background-size: cover;
     flex-direction: column;
-    padding-top: 145px;
 }
 
 .Reg-title{
     align-self: center;
-    padding-top: 50px;
 }
 
-.Reg-header {
-    background-color: #555;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 125px;
-    align-items: center;
-    box-shadow: 0 0 25px 0 black;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    justify-items: center;
-}
-.Nav-Bar{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    justify-items: center;
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
-.Tab-Bar{
+.navbar{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
