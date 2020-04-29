@@ -13,18 +13,30 @@ class AdminMatch extends React.Component{
             Eventid: "",
             eventparams: "",
             MatchedItems:"",
-            SelectedDonations:{}
+            SelectedDonations:{},
+            CloseEvent:0
         };
 
         this.choosedonation = this.choosedonation.bind(this);
         this.seldonation = this.seldonation.bind(this);
+        this.closedonation = this.closedonation.bind(this);
+    }
+
+    closedonation = e =>{
+        var checkBox = document.getElementById("closedonation");
+        this.setState({CloseEvent: 0});
+        if (checkBox.checked == true){
+            this.setState({CloseEvent: 1});
+        }
     }
 
     choosedonation = e =>{
         e.preventDefault();
         var info={}
         info['EventId'] = this.state.Eventid;
+        info['CreatorID'] = this.state.eventparams['Creator'];
         info['Donations'] = this.state.SelectedDonations;
+        info['CloseDonation']=this.state.CloseEvent;
         console.log(info)
         axios({method:'post',
             url: Url+'insertmatchingdonation',
@@ -107,6 +119,8 @@ class AdminMatch extends React.Component{
                     }):
                     []
                 }
+                <br></br><input type="checkbox" id="closedonation" name="close" value="CDonation" onChange={this.closedonation}></input>
+                <label for="vehicle1"> Close Donation For This Event</label><br></br>
                 <input className="Match-button" type="submit" value="Submit Donations" onClick={this.choosedonation}/>
                 </Form>
             </div>

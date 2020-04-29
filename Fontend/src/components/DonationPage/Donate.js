@@ -188,6 +188,7 @@ class Donate extends React.Component{
                             []
                         }
                     </table>
+
                     <FormControl className="Form-button" type="submit" value="Submit" onClick={this.handleSubmitDonation}/>
             </Form>
             </div>

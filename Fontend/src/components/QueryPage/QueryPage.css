@@ -60,8 +60,14 @@
 
 .Donate-button{
     padding-left: 4px;
+    margin-top: 10px;
+    
 }
 
 .text-muted{
     padding-right: 2%;
+}
+
+.close-donation{
+    color: red;
 }
