@@ -19,9 +19,7 @@ class CreateEventPage extends Component {
     render() {
         return (
             <div className="CreateEventPage">
-                <header className="Event-header">
-                    <NavBar className="Nav-Bar"/>
-                </header>
+                <NavBar className="Nav-Bar"/>
                 <h2 className = "title">Request Disaster Resources</h2>
                 <CreateEventForm reRoute={this.reRoute} className="Event-body"/>
             </div>

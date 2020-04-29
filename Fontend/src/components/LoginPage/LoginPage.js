@@ -20,19 +20,13 @@ class LoginPage extends Component {
 
   reRoute(path,sessval){
       console.log('LoginPage, Path:', path);
-      this.props.history.push(path);
+      window.location.href = path;
   }
 
   render() {
     return (
         <div className="LoginPage">
-          <header className="Login-header">
             <NavBar className="Nav-Bar"/>
-            <Tabs className="Tab-Bar">
-              <Tab label="User"></Tab>
-              <Tab label="Admin"></Tab>
-            </Tabs>
-          </header>
           <h2 className = "title">Login</h2>
             <div className = "formDiv">
           <LoginForm reRoute={this.reRoute}/>

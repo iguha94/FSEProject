@@ -71,9 +71,7 @@ class AdminMatch extends React.Component{
         let {eventparams, MatchedItems, Eventid} = this.state
         return(
             <div className="AdminMatchPage">
-                <header className="Event-header">
-                        <NavBar className="Nav-Bar"/>
-                </header>
+                <NavBar className="Nav-Bar"/>
                 <Form className = "Match-form">
                 <label htmlFor="Organization"><b>Organization: </b> {eventparams['CallCenter']}</label>
                 <br></br>

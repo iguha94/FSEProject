@@ -20,13 +20,7 @@ class RegistrationPage extends Component {
     render() {
         return (
             <div className="RegistrationPage">
-                <header className="Reg-header">
-                    <NavBar className="Nav-Bar"/>
-                    <Tabs className="Tab-Bar">
-                        <Tab label="User"></Tab>
-                        <Tab label="Admin"></Tab>
-                    </Tabs>
-                </header>
+                <NavBar className="Nav-Bar"/>
                 <h2 className = "Reg-title">Register User</h2>
                 <RegistrationForm reRoute={this.reRoute}/>
             </div>
