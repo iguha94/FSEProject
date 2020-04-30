@@ -12,4 +12,4 @@ blocks:
           commands:
           - checkout
           - pip3 install -r requirements.txt
-          - python -m unittest discover -p 'Test*.py'
+          - python3 -m unittest discover -p 'Test*.py'
