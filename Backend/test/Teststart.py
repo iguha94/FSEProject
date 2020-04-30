@@ -32,7 +32,7 @@ class TestRestAPI(unittest.TestCase):
             data=json.dumps({'payload':{'Email': 'ABC123@gmail.com', 'PassWord': 'abc'}}),
             content_type='application/json'
         )
-        assert response.status_code == 200
+        assert response.status_code != 200
 
     def test_login_failure_invalid_password(self):
         response = app.test_client().post(
@@ -56,7 +56,7 @@ class TestRestAPI(unittest.TestCase):
             data=json.dumps({'payload':{'Email': '', 'PassWord': 'abc'}}),
             content_type='application/json'
         )
-        assert response.status_code == 200
+        assert response.status_code != 200
 
     def test_login_failure_Missing_Password(self):
         response = app.test_client().post(
@@ -64,7 +64,7 @@ class TestRestAPI(unittest.TestCase):
             data=json.dumps({'payload':{'Email': 'ABC123@gmail.com', 'PassWord': ''}}),
             content_type='application/json'
         )
-        assert response.status_code == 200
+        assert response.status_code != 200
 
     def test_signup_success(self):
         with patch(target='mysql.connector.connect') as mock:
