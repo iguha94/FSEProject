@@ -12,3 +12,4 @@ flask-cors==3.0.8
 flask-jwt-extended==3.24.1
 mysql-connector-python==8.0.19
 unittest2==1.1.0
+unittest2==0.0
