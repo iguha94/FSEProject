@@ -7,7 +7,7 @@ import json
 from unittest.mock import patch,MagicMock
 
 content ={'payload':{"Email":"ABC1234@gmail.com","PassWord": "abc","LastName": "Guha","FirstName":"Indranil",
-	"Street": "Oakcrest Street","City": "Iowa city","ZIP": "52246","State": "IA","Country": "USA","Phone": "3195128300"}}
+	"Street": "Oakcrest Street","City": "Iowa city","ZIP": "52246","State": "IA","Country": "USA","Phone": "3195128300","AdminStatus":True}}
 
 eventcontent = {
                     'payload':{
@@ -16,7 +16,9 @@ eventcontent = {
                         'resources':[]
                     }
                 }
-donationdata = {'body':{'data':[]}}
+donationdata = {'body':{'data':[{'EID':'123',"IID":"122222","DonorID":"abc@gmail.com","ItemName":"ac","Requested":"12","Donated":"12","ReqCallCenterID":"a","DonCallCenterID":"b","Street": "Oakcrest Street","City": "Iowa city","ZIP": "52246","State": "IA","Country": "USA"}]}}
+donateddata = {'info':{'EventId':'123','CreatorID':'creator@gmail.com','CloseDonation':True,'Donations':{"1":{"IID":"122222","DonorID":"abc@gmail.com","ItemName":"ac","Requested":"12","Donated":"12","Street": "Oakcrest Street","City": "Iowa city","ZIP": "52246","State": "IA","Country": "USA"}}}}
+
 testres=[]
 
 
@@ -73,12 +75,13 @@ class TestRestAPI(unittest.TestCase):
                 data=json.dumps(content),
                 content_type='application/json'
             )
-            assert response.status_code != 200
+            assert response.status_code == 200
 
     def test_event_query_success(self):
             with patch(target='mysql.connector.connect') as mock:
                 connection = mock.return_value
                 mycursor = connection.cursor.return_value
+
                 response = app.test_client().get(
                     '/query',
                     content_type='application/json'
@@ -139,6 +142,16 @@ class TestRestAPI(unittest.TestCase):
                 )
                 assert response.status_code != 200
 
-# Make the tests conveniently executable
+    def test_insertmatching_donation_success(self):        
+        with patch(target='mysql.connector.connect') as mock:
+                connection = mock.return_value
+                mycursor = connection.cursor.return_value
+                response = app.test_client().post(
+                    '/insertmatchingdonation',
+                    data=json.dumps(donateddata),
+                    content_type='application/json'
+                )
+                assert response.status_code == 200
+
 if __name__ == "__main__":
     unittest.main()
