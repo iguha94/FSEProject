@@ -13,3 +13,5 @@ Fontend/node_modules/
 Fontend/package-lock.json
 package-lock.json
 .DS_Store
+.coverage
+htmlcov/
