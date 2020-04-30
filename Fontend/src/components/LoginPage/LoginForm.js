@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Panel, Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 import axios from 'axios';
-
+import { useHistory } from 'react-router-dom';
 
 const Url='http://localhost:5000/'
+const history = useHistory;
 
 const divStyle = {
   display: 'flex',
@@ -44,10 +45,10 @@ class LoginForm extends Component {
    this.setState({password: e.target.value});
   }
   handleFormSubmit(e) {
-     e.preventDefault();
-     console.log('In handle submit')
-      const loginurl=Url+'login'
-      console.log('Email Id: '+this.state.email)
+    e.preventDefault();
+    console.log('In handle submit')
+    const loginurl=Url+'login'
+    console.log('Email Id: '+this.state.email)
 
     const payload = {
 	Email:this.state.email,
@@ -59,9 +60,10 @@ class LoginForm extends Component {
             payload
     }
   }).then(data => {
-    console.log(data);
-    console.log("FORM SUBMITTED!");
-    this.props.reRoute('/');
+    localStorage.setItem('userToken', data.data.token);
+    console.log(localStorage.getItem('userToken'));
+    alert("Sucessfully Logged In!");
+    window.location.href = '/';
   }).catch(err=>console.log(err));
   }
 

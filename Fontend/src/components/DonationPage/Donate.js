@@ -134,9 +134,7 @@ class Donate extends React.Component{
         console.log('here')
         return (
             <div className="CreateDonationPage">
-                <header className="Event-header">
-                    <NavBar className="Nav-Bar"/>
-                </header>
+                <NavBar className="Nav-Bar"/>
                 <h2 className="Donate-title">Donate Disaster Resources</h2>
                 <Form onSubmit={this.handleSubmitDonation} className="Event-form" >
                     <label htmlFor="Organization"><b>Organization: </b> {eventparams['CallCenter']}</label>

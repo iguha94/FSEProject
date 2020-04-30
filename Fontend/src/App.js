@@ -8,16 +8,14 @@ import './App.css';
 class App extends Component {
   constructor()
   {
-      console.log('here')
       super();
   }
   render() {
     return (
         <div className="App">
-            <header className="Home-header">
+        <HomePage>
                <NavBar className="Nav-Bar"/>
-            </header>,
-            <HomePage/>
+        </HomePage>
         </div>
     );
   }

@@ -11,7 +11,7 @@
 
 .App-header {
   background-color: #222;
-  height: 150px;
+  /*height: 150px;*/
   padding: 20px;
   color: white;
 }
@@ -26,7 +26,7 @@
 }
 
 .Nav-Bar{
-    display: flex;
+    /*display: flex;*/
     flex-direction: row;
     justify-content: space-between;
     justify-items: center;

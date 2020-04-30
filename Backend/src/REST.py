@@ -4,19 +4,21 @@ Created on Tue Feb 18 17:01:14 2020
 @author: MBiggs
 """
 
-from flask import Flask, jsonify, render_template, request,g
+from flask import Flask, jsonify, render_template, request,g, redirect, make_response
 import mysql.connector
 import base64
 import re
 from flask_cors import CORS, cross_origin
 import datetime
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, create_refresh_token
 import smtplib, ssl
-
 
 regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['JWT_SECRET_KEY'] = 'secret'
+app.config['BASE_URL'] = "http://localhost:5000"
 cors = CORS(app, resources={r"/login": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/registration": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/query": {"origins": "http://localhost:3000"}})
@@ -25,9 +27,12 @@ cors = CORS(app, resources={r"/subdonation": {"origins": "http://localhost:3000"
 cors = CORS(app, resources={r"/getmatchingdonation": {"origins": "http://localhost:3000"}})
 cors = CORS(app, resources={r"/insertmatchingdonation": {"origins": "http://localhost:3000"}})
 
+jwt = JWTManager(app)
+
+
 @app.before_request
 def con():
-  g.db = mysql.connector.connect(user='root', password='',
+  g.db = mysql.connector.connect(user='root', password='root',
                                 host='localhost', database='FSETEAM04',
                                 auth_plugin='mysql_native_password') #passowrd is 'root' for mikayla
 
@@ -63,9 +68,9 @@ def login():
     print('Email: ', request.json['payload']['Email'])
     print('PassWord: ', request.json['payload']['PassWord'])
     if not request.json or not 'Email' in request.json['payload'] or request.json['payload']['Email'] == '':
-        return jsonify({'Message': 'EmailID is Mandatory'}),200
+        return jsonify({'error': 'None'}),200
     if not request.json or not 'PassWord' in request.json['payload'] or request.json['payload']['PassWord'] == '' :
-        return jsonify({'Message': 'PassWord is Mandatory'}),200
+        return jsonify({'error': 'None'}),200
     EmailID = request.json['payload']['Email']
     PassWord = base64.b64encode(request.json['payload']['PassWord'].encode("utf-8"))
 
@@ -73,12 +78,19 @@ def login():
     val = (EmailID,PassWord,)
     mycursor.execute(sql, val)
     myresult = mycursor.fetchall()
-    print('here4',len(myresult))
+    print(myresult)
+    out = [item for t in myresult for item in t] 
+    print(out[10])
+#    print('here4',len(myresult))
     g.db.close()
     if len(myresult)!=1:
-        return jsonify({'Message': 'Email or Password is Incorrect'}),200
-    print('here3')
-    return jsonify({'Message': 'Logged in Successfully'}), 200
+        result = jsonify({'error': 'none'}),200
+    else:
+        print("Log-in Successful")
+        refresh_token = create_refresh_token(identity={'EmailID':EmailID})
+        access_token = create_access_token(identity={'EmailID': EmailID})
+        result = jsonify({"access_token":access_token, "refresh_token":refresh_token, "error": "none", "admin":out[10]})
+    return result
 
 
 @app.route('/test',methods=['POST'])
@@ -105,7 +117,7 @@ def signup():
     myresult = mycursor.fetchall()
     print('Total record in db: ',len(myresult))
     if len(myresult)>0:
-        return jsonify({'Message': 'User with This EmailID is already Present'}),200
+        return jsonify({'error': 'User has an Existing Account'}),200
     print(request.json['payload'])
     if 'LastName' not in request.json['payload']:
         return jsonify({'Message': 'Last Name is Mandatory'}), 200
@@ -132,14 +144,18 @@ def signup():
     Country = request.json['payload']['Country']
     PassWord = base64.b64encode(request.json['payload']['PassWord'].encode("utf-8"))
     Phone = request.json['payload']['Phone']
-    Status = 'Default'
+    AdminStatus = request.json['payload']['AdminStatus']
     CurStatus=''
-    sql = "INSERT INTO Users (LastName,FirstName,Street,City,ZIP,State,Country,Email,PassWord,Phone,Status,CurStatus) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s,%s,%s)"
-    val = (LastName,FirstName,Street,City,ZIP,State,Country,EmailID,PassWord,Phone,Status,CurStatus)
+    sql = "INSERT INTO Users (LastName,FirstName,Street,City,ZIP,State,Country,Email,PassWord,Phone,AdminStatus,CurStatus) VALUES ( %s, %s,%s,%s, %s, %s,%s,%s, %s, %s,%s,%s)"
+    val = (LastName,FirstName,Street,City,ZIP,State,Country,EmailID,PassWord,Phone,AdminStatus,CurStatus)
     mycursor.execute(sql, val)
     g.db.commit()
     g.db.close()
-    return jsonify({'Message': 'Account Created Successfully'}), 200
+    print("Log-in Successful")
+    access_token = create_access_token(identity={'EmailID': EmailID})
+    refresh_token = create_refresh_token(identity={'EmailID':EmailID})
+    result = jsonify({"refresh_token":refresh_token, "access_token":access_token, "admin":AdminStatus})
+    return result
 
 @app.route('/query',methods=['GET'])
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])

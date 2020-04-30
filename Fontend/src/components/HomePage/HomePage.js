@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component, useRef} from 'react';
 import './HomePage.css';
 import {Panel} from "react-bootstrap";
+import Heading from "../Heading/Heading";
+import NavBar from "../NavBar/NavBar";
 
 const divStyle = {
-    display: 'flex',
     alignItems: 'center',
     margin: 'auto',
 };
@@ -11,18 +12,15 @@ const divStyle = {
 const panelStyle = {
     backgroundColor: 'rgba(255,255,255,0.5)',
     border: 0,
-    paddingLeft: 20,
-    paddingRight: 20,
 };
 
 class HomePage extends Component{
     render() {
         return (
-            <div style={divStyle} className="HomePage">
+            <div style={divStyle} className= "wrapper">
                 <Panel style={panelStyle}>
-                    <div className="Home-body">
-                        <h1 className="Home-title"> Help Someone In Need, Today</h1>
-                    </div>
+                    <NavBar className="Nav-Bar"/>
+                        <Heading text="Help Someone in Need, Today" arc={100} radius={650} />
                 </Panel>
             </div>
         );

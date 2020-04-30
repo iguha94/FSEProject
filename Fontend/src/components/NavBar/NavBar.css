@@ -2,7 +2,7 @@
 .navbar {
     width: 100%;
     background-color: #555;
-    overflow: auto;
+    /*overflow: auto;*/
     z-index: 1;
 }
 
@@ -27,6 +27,15 @@
 /* Style the current/active link */
 .navbar a.active {
     background-color: #4CAF50;
+}
+
+.dropdown {
+    float: left;
+    overflow: auto;
+}
+
+.dropdown-menu.show{
+    padding: inherit;
 }
 
 /* Add responsiveness - on screens less than 500px, make the navigation links appear on top of each other, instead of next to each other */
