@@ -32,33 +32,13 @@ jwt = JWTManager(app)
 
 @app.before_request
 def con():
-  g.db = mysql.connector.connect(user='root', password='root',
+  g.db = mysql.connector.connect(user='root', password='',
                                 host='localhost', database='FSETEAM04',
                                 auth_plugin='mysql_native_password') #passowrd is 'root' for mikayla
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
-
-@app.route('/chngtoadmstatus',methods=['GET'])
-def changetoadmstatus():
-    mycursor = g.db.cursor()
-    mycursor.execute('USE FSETEAM04')
-    emailid= request.args.get('Email')
-    if emailid== '':
-        return jsonify({'Message': 'Valid EmailID is Mandatory'}),400
-    sql = "SELECT * FROM Users WHERE Email=%s"
-    val = (emailid,)
-    mycursor.execute(sql, val)
-    myresult = mycursor.fetchall()
-    if len(myresult)!=1:
-        return jsonify({'Message': 'User is not present in the Databse'}),400
-    sql = "UPDATE Users SET Status = 'ADMIN' WHERE Email = %s"
-    val = (emailid,)
-    mycursor.execute(sql, val)
-    g.db.close()
-    return jsonify({'Message': 'User Has been Promoted to Admin Status'}), 200
-
 
 @app.route('/login',methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
@@ -91,11 +71,6 @@ def login():
         access_token = create_access_token(identity={'EmailID': EmailID})
         result = jsonify({"access_token":access_token, "refresh_token":refresh_token, "error": "none", "admin":out[10]})
     return result
-
-
-@app.route('/test',methods=['POST'])
-def test():
-    return jsonify({'Message': 'Logged in Successfully'}), 200
 
 @app.route('/registration',methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])

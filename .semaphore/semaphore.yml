@@ -11,5 +11,5 @@ blocks:
         - name: Pytest
           commands:
           - checkout
-          - pip install -r requirements.txt
-          - python -m unittest discover -p 'Test*.py'
+          - pip3 install -r requirements.txt
+          - python3 -m unittest discover -p 'Test*.py'
