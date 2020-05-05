@@ -379,8 +379,8 @@ def InsertMatchingDonation():
         sender = "fseteam004@gmail.com"
         recipient = request.json['info']['CreatorID']
         password = "Password4!" # Your SMTP password for Gmail
-        subject = "Test email from Python"
-        text = "Hello from Python"
+        subject = "Donation Match Completed"
+        text = "Hello from Team04, Your donation/request has been approved!"
         smtp_server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
         smtp_server.login(sender, password)
         message = "Subject: {}\n\n{}".format(subject, text)
